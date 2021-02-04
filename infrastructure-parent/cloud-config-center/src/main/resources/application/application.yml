@@ -1,0 +1,86 @@
+spring:
+  http:
+    multipart:
+      #上传文件总的最大值为30MB
+      max-request-size: 30MB
+      #单个文件的最大值为10MB
+      max-file-size: 10MB
+  ###zipkin
+  zipkin:
+    discoveryClientEnabled: false
+    sender:
+      type: kafka
+    kafka:
+      topic: myZipkin
+  sleuth:
+    sampler:
+      probability: 0.2 # 采样比例为: 0.1(即10%),设置的值介于0.0到1.0之间，1.0则表示全部采集
+
+##eureka
+eureka:
+  instance:
+    #心跳，租约续约频率，单位：秒
+    lease-renewal-interval-in-seconds: 5
+    #eureka server多久没有收到心跳，则表示对应的实例过期，单位：秒。
+    lease-expiration-duration-in-seconds: 30
+
+#feign
+feign:
+  hystrix:
+    enabled: true
+
+# 设置熔断超时时间
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+  command:
+    default:
+      execution:
+        strategy: THREAD
+        isolation: #命令的执行超时时间  超时将执行回退
+          thread:
+            timeoutInMilliseconds: 10000
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 5000
+      circuitBreaker:
+        # 10秒内出现3个以上请求(已临近阀值),并且出错率在50%以上,开启断路器.断开服务,调用Fallback方法
+        requestVolumeThreshold: 3
+        sleepWindowInMilliseconds: 10000
+
+#ribbon的超时时间
+ribbon:
+  ConnectTimeout: 2000
+  ReadTimeout: 5000
+  MaxAutoRetries: 0 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+  MaxConnectionsPerHost: 5000
+  MaxTotalConnections: 50000
+
+##tomcat
+server:
+  #链接建立超时时间
+  connection-timeout: 10000
+  tomcat:
+    uri-encoding: UTF-8
+    #最小线程数
+    min-spare-threads: 16
+    #最大线程数
+    max-threads: 500
+    #最大连接数
+    max-connections: 50000
+    #最大等待队列长度
+    accept-count: 1000
+    #请求头最大长度kb
+    max-http-header-size: 1048576
+    #请请求体最大长度kb
+    max-http-post-size: 2097152
+
+#SpringCloud 2.X版本暴露接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

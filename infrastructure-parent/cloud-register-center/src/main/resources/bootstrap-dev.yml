@@ -1,0 +1,17 @@
+server:
+  port: 8761                    # 指定该Eureka实例的端口
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  server:
+    enable-self-preservation: false
+    #Eureka Server端服务实例租约过期定时任务执行频率
+    eviction-interval-timer-in-ms: 5000
+
+# Logger config
+logging:
+  config: classpath:log4j2/log4j2-dev.xml

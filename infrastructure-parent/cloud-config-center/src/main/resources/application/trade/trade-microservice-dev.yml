@@ -1,0 +1,25 @@
+##mq
+mq:
+  defaultExchange: amqpExchange # 默认交换器
+  queue: messageTestQueue # 队列名
+  routeKey: messageTestQueue_key # 路由key
+
+spring:
+  # 这里配置分组
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: trade_tx_group
+
+#阿里分布式事务配置
+seata:
+  service:
+    vgroup-mapping:
+      #这里的组名trade_tx_group就是上面已经配置过的
+      # seata-server 对应的就是register.conf里的application选项的内容
+      trade_tx_group: seata-server
+    grouplist:
+      #这里对应的就是上面的seata-server，后面的才是seata服务的IP地址和端口号
+      seata-server: 127.0.0.1:9091
+    enable-degrade: false
+    disable-global-transaction: false

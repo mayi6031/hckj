@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: order-microservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: order-microservice
+
+mybatis:
+  mapperLocations: com/hckj/order/**/*.xml
+
+
+
+

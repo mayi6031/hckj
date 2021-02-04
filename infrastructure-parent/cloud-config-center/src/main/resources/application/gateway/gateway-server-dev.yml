@@ -1,0 +1,72 @@
+zuul:
+#  host:
+#    max-per-route-connections: 1000
+#    max-total-connections: 50000
+#    socket-timeout-millis: 60000
+#    connect-timeout-millis: 60000
+#  max:
+#    host:
+#      connections: 50000
+#  ribbon-isolation-strategy: THREAD
+  routes:
+    product:
+      path: /product/**
+      service-id: product-microservice
+#      strip-prefix: false
+    trade:
+      path: /trade/**
+      service-id: trade-microservice
+#      strip-prefix: false
+    order:
+      path: /order/**
+      service-id: order-microservice
+#      strip-prefix: false
+
+# 设置熔断超时时间
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+  command:
+    default:
+      execution:
+        strategy: THREAD
+        isolation: #命令的执行超时时间  超时将执行回退
+          thread:
+            timeoutInMilliseconds: 64000
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 5000
+      circuitBreaker:
+        # 10秒内出现3个以上请求(已临近阀值),并且出错率在50%以上,开启断路器.断开服务,调用Fallback方法
+        requestVolumeThreshold: 3
+        sleepWindowInMilliseconds: 10000
+
+#ribbon的超时时间
+ribbon:
+  ConnectTimeout: 2000
+  ReadTimeout: 30000
+  MaxAutoRetries: 0 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+  MaxConnectionsPerHost: 5000
+  MaxTotalConnections: 50000
+
+##tomcat
+server:
+  #链接建立超时时间
+  connection-timeout: 10000
+  tomcat:
+    uri-encoding: UTF-8
+    #最小线程数
+    min-spare-threads: 16
+    #最大线程数
+    max-threads: 500
+    #最大连接数
+    max-connections: 50000
+    #最大等待队列长度
+    accept-count: 1000
+    #请求头最大长度kb
+    max-http-header-size: 1048576
+    #请请求体最大长度kb
+    max-http-post-size: 2097152

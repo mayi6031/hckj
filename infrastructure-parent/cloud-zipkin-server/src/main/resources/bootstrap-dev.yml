@@ -1,0 +1,19 @@
+###zipkin
+#zipkin:
+#  storage:
+#    type: elasticsearch
+#    elasticsearch:
+#      hosts: http://localhost:9200
+#      cluster: hxd_db
+#      index: zipkin
+#      index-shards: 1
+#      index-replicas: 1
+#  collector:
+#    kafka:
+#      bootstrap-servers: localhost:9092
+#      zookeeper: localhost:2181
+#      topic: myZipkin
+
+# Logger config
+logging:
+  config: classpath:log4j2/log4j2-dev.xml

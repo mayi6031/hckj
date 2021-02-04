@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsgd.sr.microservice.partner.dao.HsgdPartnerSmsRecordDao">
+  <resultMap id="BaseResultMap" type="com.hsgd.common.domain.customer.partner.model.HsgdPartnerSmsRecord">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="SUBJECT_ROLE" jdbcType="INTEGER" property="subjectRole" />
+    <result column="SUBJECT_NAME" jdbcType="VARCHAR" property="subjectName" />
+    <result column="SUBJECT_CUSTOMER_ID" jdbcType="BIGINT" property="subjectCustomerId" />
+    <result column="RELATE_VTC_CUSTOMER_ID" jdbcType="VARCHAR" property="relateVtcCustomerId" />
+    <result column="RELATE_VTC_NAME" jdbcType="VARCHAR" property="relateVtcName" />
+    <result column="RELATE_VTC_MOBILE" jdbcType="VARCHAR" property="relateVtcMobile" />
+    <result column="RELATE_SR_CUSTOMER_ID" jdbcType="VARCHAR" property="relateSrCustomerId" />
+    <result column="RELATE_SR_NAME" jdbcType="VARCHAR" property="relateSrName" />
+    <result column="RELATE_SR_MOBILE" jdbcType="VARCHAR" property="relateSrMobile" />
+    <result column="PARTNER_CUSTOMER_ID" jdbcType="BIGINT" property="partnerCustomerId" />
+    <result column="PARTNER_NAME" jdbcType="VARCHAR" property="partnerName" />
+    <result column="PARTNER_MOBILE" jdbcType="VARCHAR" property="partnerMobile" />
+    <result column="REGION_MANAGER_CUSTOMER_ID" jdbcType="BIGINT" property="regionManagerCustomerId" />
+    <result column="REGION_MANAGER_NAME" jdbcType="VARCHAR" property="regionManagerName" />
+    <result column="REGION_MANAGER_MOBILE" jdbcType="VARCHAR" property="regionManagerMobile" />
+    <result column="REGION_CHIEF_CUSTOMER_ID" jdbcType="BIGINT" property="regionChiefCustomerId" />
+    <result column="REGION_CHIEF_NAME" jdbcType="VARCHAR" property="regionChiefName" />
+    <result column="REGION_CHIEF_MOBILE" jdbcType="VARCHAR" property="regionChiefMobile" />
+    <result column="CREATED" jdbcType="TIMESTAMP" property="created" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="UPDATED" jdbcType="TIMESTAMP" property="updated" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SUBJECT_ROLE, SUBJECT_NAME, SUBJECT_CUSTOMER_ID, RELATE_VTC_CUSTOMER_ID, RELATE_VTC_NAME, 
+    RELATE_VTC_MOBILE, RELATE_SR_CUSTOMER_ID, RELATE_SR_NAME, RELATE_SR_MOBILE, PARTNER_CUSTOMER_ID, 
+    PARTNER_NAME, PARTNER_MOBILE, REGION_MANAGER_CUSTOMER_ID, REGION_MANAGER_NAME, REGION_MANAGER_MOBILE, 
+    REGION_CHIEF_CUSTOMER_ID, REGION_CHIEF_NAME, REGION_CHIEF_MOBILE, CREATED, CREATED_BY, 
+    UPDATED, UPDATED_BY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSGD_PARTNER_SMS_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from HSGD_PARTNER_SMS_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hsgd.common.domain.customer.partner.model.HsgdPartnerSmsRecord">
+    insert into HSGD_PARTNER_SMS_RECORD (ID, SUBJECT_ROLE, SUBJECT_NAME, 
+      SUBJECT_CUSTOMER_ID, RELATE_VTC_CUSTOMER_ID, 
+      RELATE_VTC_NAME, RELATE_VTC_MOBILE, RELATE_SR_CUSTOMER_ID, 
+      RELATE_SR_NAME, RELATE_SR_MOBILE, PARTNER_CUSTOMER_ID, 
+      PARTNER_NAME, PARTNER_MOBILE, REGION_MANAGER_CUSTOMER_ID, 
+      REGION_MANAGER_NAME, REGION_MANAGER_MOBILE, 
+      REGION_CHIEF_CUSTOMER_ID, REGION_CHIEF_NAME, 
+      REGION_CHIEF_MOBILE, CREATED, CREATED_BY, 
+      UPDATED, UPDATED_BY)
+    values (#{id,jdbcType=BIGINT}, #{subjectRole,jdbcType=INTEGER}, #{subjectName,jdbcType=VARCHAR}, 
+      #{subjectCustomerId,jdbcType=BIGINT}, #{relateVtcCustomerId,jdbcType=VARCHAR}, 
+      #{relateVtcName,jdbcType=VARCHAR}, #{relateVtcMobile,jdbcType=VARCHAR}, #{relateSrCustomerId,jdbcType=VARCHAR}, 
+      #{relateSrName,jdbcType=VARCHAR}, #{relateSrMobile,jdbcType=VARCHAR}, #{partnerCustomerId,jdbcType=BIGINT}, 
+      #{partnerName,jdbcType=VARCHAR}, #{partnerMobile,jdbcType=VARCHAR}, #{regionManagerCustomerId,jdbcType=BIGINT}, 
+      #{regionManagerName,jdbcType=VARCHAR}, #{regionManagerMobile,jdbcType=VARCHAR}, 
+      #{regionChiefCustomerId,jdbcType=BIGINT}, #{regionChiefName,jdbcType=VARCHAR}, 
+      #{regionChiefMobile,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsgd.common.domain.customer.partner.model.HsgdPartnerSmsRecord">
+    insert into HSGD_PARTNER_SMS_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="subjectRole != null">
+        SUBJECT_ROLE,
+      </if>
+      <if test="subjectName != null">
+        SUBJECT_NAME,
+      </if>
+      <if test="subjectCustomerId != null">
+        SUBJECT_CUSTOMER_ID,
+      </if>
+      <if test="relateVtcCustomerId != null">
+        RELATE_VTC_CUSTOMER_ID,
+      </if>
+      <if test="relateVtcName != null">
+        RELATE_VTC_NAME,
+      </if>
+      <if test="relateVtcMobile != null">
+        RELATE_VTC_MOBILE,
+      </if>
+      <if test="relateSrCustomerId != null">
+        RELATE_SR_CUSTOMER_ID,
+      </if>
+      <if test="relateSrName != null">
+        RELATE_SR_NAME,
+      </if>
+      <if test="relateSrMobile != null">
+        RELATE_SR_MOBILE,
+      </if>
+      <if test="partnerCustomerId != null">
+        PARTNER_CUSTOMER_ID,
+      </if>
+      <if test="partnerName != null">
+        PARTNER_NAME,
+      </if>
+      <if test="partnerMobile != null">
+        PARTNER_MOBILE,
+      </if>
+      <if test="regionManagerCustomerId != null">
+        REGION_MANAGER_CUSTOMER_ID,
+      </if>
+      <if test="regionManagerName != null">
+        REGION_MANAGER_NAME,
+      </if>
+      <if test="regionManagerMobile != null">
+        REGION_MANAGER_MOBILE,
+      </if>
+      <if test="regionChiefCustomerId != null">
+        REGION_CHIEF_CUSTOMER_ID,
+      </if>
+      <if test="regionChiefName != null">
+        REGION_CHIEF_NAME,
+      </if>
+      <if test="regionChiefMobile != null">
+        REGION_CHIEF_MOBILE,
+      </if>
+      <if test="created != null">
+        CREATED,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="updated != null">
+        UPDATED,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="subjectRole != null">
+        #{subjectRole,jdbcType=INTEGER},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCustomerId != null">
+        #{subjectCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="relateVtcCustomerId != null">
+        #{relateVtcCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="relateVtcName != null">
+        #{relateVtcName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateVtcMobile != null">
+        #{relateVtcMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrCustomerId != null">
+        #{relateSrCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrName != null">
+        #{relateSrName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrMobile != null">
+        #{relateSrMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerCustomerId != null">
+        #{partnerCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="partnerName != null">
+        #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerMobile != null">
+        #{partnerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="regionManagerCustomerId != null">
+        #{regionManagerCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="regionManagerName != null">
+        #{regionManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionManagerMobile != null">
+        #{regionManagerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="regionChiefCustomerId != null">
+        #{regionChiefCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="regionChiefName != null">
+        #{regionChiefName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionChiefMobile != null">
+        #{regionChiefMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsgd.common.domain.customer.partner.model.HsgdPartnerSmsRecord">
+    update HSGD_PARTNER_SMS_RECORD
+    <set>
+      <if test="subjectRole != null">
+        SUBJECT_ROLE = #{subjectRole,jdbcType=INTEGER},
+      </if>
+      <if test="subjectName != null">
+        SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectCustomerId != null">
+        SUBJECT_CUSTOMER_ID = #{subjectCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="relateVtcCustomerId != null">
+        RELATE_VTC_CUSTOMER_ID = #{relateVtcCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="relateVtcName != null">
+        RELATE_VTC_NAME = #{relateVtcName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateVtcMobile != null">
+        RELATE_VTC_MOBILE = #{relateVtcMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrCustomerId != null">
+        RELATE_SR_CUSTOMER_ID = #{relateSrCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrName != null">
+        RELATE_SR_NAME = #{relateSrName,jdbcType=VARCHAR},
+      </if>
+      <if test="relateSrMobile != null">
+        RELATE_SR_MOBILE = #{relateSrMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerCustomerId != null">
+        PARTNER_CUSTOMER_ID = #{partnerCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="partnerName != null">
+        PARTNER_NAME = #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="partnerMobile != null">
+        PARTNER_MOBILE = #{partnerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="regionManagerCustomerId != null">
+        REGION_MANAGER_CUSTOMER_ID = #{regionManagerCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="regionManagerName != null">
+        REGION_MANAGER_NAME = #{regionManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionManagerMobile != null">
+        REGION_MANAGER_MOBILE = #{regionManagerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="regionChiefCustomerId != null">
+        REGION_CHIEF_CUSTOMER_ID = #{regionChiefCustomerId,jdbcType=BIGINT},
+      </if>
+      <if test="regionChiefName != null">
+        REGION_CHIEF_NAME = #{regionChiefName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionChiefMobile != null">
+        REGION_CHIEF_MOBILE = #{regionChiefMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        CREATED = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        UPDATED = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsgd.common.domain.customer.partner.model.HsgdPartnerSmsRecord">
+    update HSGD_PARTNER_SMS_RECORD
+    set SUBJECT_ROLE = #{subjectRole,jdbcType=INTEGER},
+      SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
+      SUBJECT_CUSTOMER_ID = #{subjectCustomerId,jdbcType=BIGINT},
+      RELATE_VTC_CUSTOMER_ID = #{relateVtcCustomerId,jdbcType=VARCHAR},
+      RELATE_VTC_NAME = #{relateVtcName,jdbcType=VARCHAR},
+      RELATE_VTC_MOBILE = #{relateVtcMobile,jdbcType=VARCHAR},
+      RELATE_SR_CUSTOMER_ID = #{relateSrCustomerId,jdbcType=VARCHAR},
+      RELATE_SR_NAME = #{relateSrName,jdbcType=VARCHAR},
+      RELATE_SR_MOBILE = #{relateSrMobile,jdbcType=VARCHAR},
+      PARTNER_CUSTOMER_ID = #{partnerCustomerId,jdbcType=BIGINT},
+      PARTNER_NAME = #{partnerName,jdbcType=VARCHAR},
+      PARTNER_MOBILE = #{partnerMobile,jdbcType=VARCHAR},
+      REGION_MANAGER_CUSTOMER_ID = #{regionManagerCustomerId,jdbcType=BIGINT},
+      REGION_MANAGER_NAME = #{regionManagerName,jdbcType=VARCHAR},
+      REGION_MANAGER_MOBILE = #{regionManagerMobile,jdbcType=VARCHAR},
+      REGION_CHIEF_CUSTOMER_ID = #{regionChiefCustomerId,jdbcType=BIGINT},
+      REGION_CHIEF_NAME = #{regionChiefName,jdbcType=VARCHAR},
+      REGION_CHIEF_MOBILE = #{regionChiefMobile,jdbcType=VARCHAR},
+      CREATED = #{created,jdbcType=TIMESTAMP},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      UPDATED = #{updated,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: zipkin-server
+  profiles:
+    active: dev
+
+server:
+  port: 9411
+
+#SpringCloud 2.X版本暴露接口
+management:
+  #zipkin启动报错无法访问的解决方法
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: *

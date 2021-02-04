@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: turbine-server
+  profiles:
+    active: dev
+
+turbine:
+  aggregator:
+    clusterConfig: default
+  appConfig: gateway-server,order-microservice,trade-microservice,product-microservice
+  clusterNameExpression: new String("default")
+
+#SpringCloud 2.X版本暴露接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

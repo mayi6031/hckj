@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hckj.product.microservice.dao.ProductInnovateDao">
+  <resultMap id="BaseResultMap" type="com.hckj.common.domain.product.model.ProductInnovateModel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="is_scaled" jdbcType="TINYINT" property="isScaled" />
+    <result column="is_test" jdbcType="TINYINT" property="isTest" />
+    <result column="is_wdl" jdbcType="TINYINT" property="isWdl" />
+    <result column="scale_amount" jdbcType="DECIMAL" property="scaleAmount" />
+    <result column="scale_alarm_amount" jdbcType="DECIMAL" property="scaleAlarmAmount" />
+    <result column="has_invest_amount" jdbcType="DECIMAL" property="hasInvestAmount" />
+    <result column="remain_amount" jdbcType="DECIMAL" property="remainAmount" />
+    <result column="min_purchase_amount" jdbcType="DECIMAL" property="minPurchaseAmount" />
+    <result column="increase_amount" jdbcType="DECIMAL" property="increaseAmount" />
+    <result column="scale_persion" jdbcType="INTEGER" property="scalePersion" />
+    <result column="scale_alarm_persion" jdbcType="INTEGER" property="scaleAlarmPersion" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="product_type_id" jdbcType="INTEGER" property="productTypeId" />
+    <result column="achievement_type" jdbcType="TINYINT" property="achievementType" />
+    <result column="attribute" jdbcType="TINYINT" property="attribute" />
+    <result column="period" jdbcType="VARCHAR" property="period" />
+    <result column="period_remark" jdbcType="VARCHAR" property="periodRemark" />
+    <result column="risk_level" jdbcType="VARCHAR" property="riskLevel" />
+    <result column="allow_risk_evaluate" jdbcType="VARCHAR" property="allowRiskEvaluate" />
+    <result column="invest_category" jdbcType="VARCHAR" property="investCategory" />
+    <result column="hightlights" jdbcType="VARCHAR" property="hightlights" />
+    <result column="is_exceed_pay" jdbcType="TINYINT" property="isExceedPay" />
+    <result column="exceed_pay_amount" jdbcType="DECIMAL" property="exceedPayAmount" />
+    <result column="lf_fold_ratio" jdbcType="DECIMAL" property="lfFoldRatio" />
+    <result column="px_fold_ratio" jdbcType="DECIMAL" property="pxFoldRatio" />
+    <result column="commission_proportion" jdbcType="DECIMAL" property="commissionProportion" />
+    <result column="product_review" jdbcType="VARCHAR" property="productReview" />
+    <result column="risk_prompt" jdbcType="VARCHAR" property="riskPrompt" />
+    <result column="product_state" jdbcType="TINYINT" property="productState" />
+    <result column="audit_state" jdbcType="TINYINT" property="auditState" />
+    <result column="online_time" jdbcType="BIGINT" property="onlineTime" />
+    <result column="establish_time" jdbcType="BIGINT" property="establishTime" />
+    <result column="raise_end_time" jdbcType="BIGINT" property="raiseEndTime" />
+    <result column="terminate_publish_time" jdbcType="BIGINT" property="terminatePublishTime" />
+    <result column="expire_time" jdbcType="BIGINT" property="expireTime" />
+    <result column="liquidation_time" jdbcType="BIGINT" property="liquidationTime" />
+    <result column="cash_time" jdbcType="BIGINT" property="cashTime" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="yn" jdbcType="TINYINT" property="yn" />
+    <result column="hightlights2" jdbcType="VARCHAR" property="hightlights2" />
+    <result column="hightlights3" jdbcType="VARCHAR" property="hightlights3" />
+    <result column="currency" jdbcType="TINYINT" property="currency" />
+    <result column="liquidation_audit_state" jdbcType="TINYINT" property="liquidationAuditState" />
+    <result column="closed_period" jdbcType="VARCHAR" property="closedPeriod" />
+    <result column="parent_product_type_id" jdbcType="INTEGER" property="parentProductTypeId" />
+    <result column="product_review2" jdbcType="VARCHAR" property="productReview2" />
+    <result column="product_review3" jdbcType="VARCHAR" property="productReview3" />
+    <result column="product_review4" jdbcType="VARCHAR" property="productReview4" />
+    <result column="product_review5" jdbcType="VARCHAR" property="productReview5" />
+    <result column="isRecover" jdbcType="TINYINT" property="isrecover" />
+    <result column="back_img_for_android" jdbcType="VARCHAR" property="backImgForAndroid" />
+    <result column="back_img_for_ios" jdbcType="VARCHAR" property="backImgForIos" />
+    <result column="raise_type" jdbcType="TINYINT" property="raiseType" />
+    <result column="is_app_display" jdbcType="TINYINT" property="isAppDisplay" />
+    <result column="contract_signature_state" jdbcType="TINYINT" property="contractSignatureState" />
+    <result column="process_new" jdbcType="TINYINT" property="processNew" />
+    <result column="is_public" jdbcType="TINYINT" property="isPublic" />
+    <result column="product_tag_id" jdbcType="INTEGER" property="productTagId" />
+    <result column="investment_track" jdbcType="VARCHAR" property="investmentTrack" />
+    <result column="investment_logic" jdbcType="VARCHAR" property="investmentLogic" />
+    <result column="is_dual_record" jdbcType="TINYINT" property="isDualRecord" />
+    <result column="product_publish_tip" jdbcType="VARCHAR" property="productPublishTip" />
+    <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="jf_product_type_id" jdbcType="INTEGER" property="jfProductTypeId" />
+    <result column="jf_parent_product_type_id" jdbcType="INTEGER" property="jfParentProductTypeId" />
+    <result column="contract_pre" jdbcType="VARCHAR" property="contractPre" />
+    <result column="is_electronic_contract" jdbcType="TINYINT" property="isElectronicContract" />
+    <result column="risk_evaluation_model" jdbcType="TINYINT" property="riskEvaluationModel" />
+    <result column="is_need_asset_certification" jdbcType="TINYINT" property="isNeedAssetCertification" />
+    <result column="product_mark" jdbcType="TINYINT" property="productMark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, name, manager, is_scaled, is_test, is_wdl, scale_amount, scale_alarm_amount, 
+    has_invest_amount, remain_amount, min_purchase_amount, increase_amount, scale_persion, 
+    scale_alarm_persion, source, product_type_id, achievement_type, attribute, period, 
+    period_remark, risk_level, allow_risk_evaluate, invest_category, hightlights, is_exceed_pay, 
+    exceed_pay_amount, lf_fold_ratio, px_fold_ratio, commission_proportion, product_review, 
+    risk_prompt, product_state, audit_state, online_time, establish_time, raise_end_time, 
+    terminate_publish_time, expire_time, liquidation_time, cash_time, create_time, yn, 
+    hightlights2, hightlights3, currency, liquidation_audit_state, closed_period, parent_product_type_id, 
+    product_review2, product_review3, product_review4, product_review5, isRecover, back_img_for_android, 
+    back_img_for_ios, raise_type, is_app_display, contract_signature_state, process_new, 
+    is_public, product_tag_id, investment_track, investment_logic, is_dual_record, product_publish_tip, 
+    manager_id, jf_product_type_id, jf_parent_product_type_id, contract_pre, is_electronic_contract, 
+    risk_evaluation_model, is_need_asset_certification, product_mark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_innovate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_product_innovate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hckj.common.domain.product.model.ProductInnovateModel">
+    insert into tb_product_innovate (id, code, name, 
+      manager, is_scaled, is_test, 
+      is_wdl, scale_amount, scale_alarm_amount, 
+      has_invest_amount, remain_amount, min_purchase_amount, 
+      increase_amount, scale_persion, scale_alarm_persion, 
+      source, product_type_id, achievement_type, 
+      attribute, period, period_remark, 
+      risk_level, allow_risk_evaluate, invest_category, 
+      hightlights, is_exceed_pay, exceed_pay_amount, 
+      lf_fold_ratio, px_fold_ratio, commission_proportion, 
+      product_review, risk_prompt, product_state, 
+      audit_state, online_time, establish_time, 
+      raise_end_time, terminate_publish_time, expire_time, 
+      liquidation_time, cash_time, create_time, 
+      yn, hightlights2, hightlights3, 
+      currency, liquidation_audit_state, closed_period, 
+      parent_product_type_id, product_review2, product_review3, 
+      product_review4, product_review5, isRecover, 
+      back_img_for_android, back_img_for_ios, raise_type, 
+      is_app_display, contract_signature_state, process_new, 
+      is_public, product_tag_id, investment_track, 
+      investment_logic, is_dual_record, product_publish_tip, 
+      manager_id, jf_product_type_id, jf_parent_product_type_id, 
+      contract_pre, is_electronic_contract, risk_evaluation_model, 
+      is_need_asset_certification, product_mark)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{isScaled,jdbcType=TINYINT}, #{isTest,jdbcType=TINYINT}, 
+      #{isWdl,jdbcType=TINYINT}, #{scaleAmount,jdbcType=DECIMAL}, #{scaleAlarmAmount,jdbcType=DECIMAL}, 
+      #{hasInvestAmount,jdbcType=DECIMAL}, #{remainAmount,jdbcType=DECIMAL}, #{minPurchaseAmount,jdbcType=DECIMAL}, 
+      #{increaseAmount,jdbcType=DECIMAL}, #{scalePersion,jdbcType=INTEGER}, #{scaleAlarmPersion,jdbcType=INTEGER}, 
+      #{source,jdbcType=TINYINT}, #{productTypeId,jdbcType=INTEGER}, #{achievementType,jdbcType=TINYINT}, 
+      #{attribute,jdbcType=TINYINT}, #{period,jdbcType=VARCHAR}, #{periodRemark,jdbcType=VARCHAR}, 
+      #{riskLevel,jdbcType=VARCHAR}, #{allowRiskEvaluate,jdbcType=VARCHAR}, #{investCategory,jdbcType=VARCHAR}, 
+      #{hightlights,jdbcType=VARCHAR}, #{isExceedPay,jdbcType=TINYINT}, #{exceedPayAmount,jdbcType=DECIMAL}, 
+      #{lfFoldRatio,jdbcType=DECIMAL}, #{pxFoldRatio,jdbcType=DECIMAL}, #{commissionProportion,jdbcType=DECIMAL}, 
+      #{productReview,jdbcType=VARCHAR}, #{riskPrompt,jdbcType=VARCHAR}, #{productState,jdbcType=TINYINT}, 
+      #{auditState,jdbcType=TINYINT}, #{onlineTime,jdbcType=BIGINT}, #{establishTime,jdbcType=BIGINT}, 
+      #{raiseEndTime,jdbcType=BIGINT}, #{terminatePublishTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, 
+      #{liquidationTime,jdbcType=BIGINT}, #{cashTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, 
+      #{yn,jdbcType=TINYINT}, #{hightlights2,jdbcType=VARCHAR}, #{hightlights3,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=TINYINT}, #{liquidationAuditState,jdbcType=TINYINT}, #{closedPeriod,jdbcType=VARCHAR}, 
+      #{parentProductTypeId,jdbcType=INTEGER}, #{productReview2,jdbcType=VARCHAR}, #{productReview3,jdbcType=VARCHAR}, 
+      #{productReview4,jdbcType=VARCHAR}, #{productReview5,jdbcType=VARCHAR}, #{isrecover,jdbcType=TINYINT}, 
+      #{backImgForAndroid,jdbcType=VARCHAR}, #{backImgForIos,jdbcType=VARCHAR}, #{raiseType,jdbcType=TINYINT}, 
+      #{isAppDisplay,jdbcType=TINYINT}, #{contractSignatureState,jdbcType=TINYINT}, #{processNew,jdbcType=TINYINT}, 
+      #{isPublic,jdbcType=TINYINT}, #{productTagId,jdbcType=INTEGER}, #{investmentTrack,jdbcType=VARCHAR}, 
+      #{investmentLogic,jdbcType=VARCHAR}, #{isDualRecord,jdbcType=TINYINT}, #{productPublishTip,jdbcType=VARCHAR}, 
+      #{managerId,jdbcType=INTEGER}, #{jfProductTypeId,jdbcType=INTEGER}, #{jfParentProductTypeId,jdbcType=INTEGER}, 
+      #{contractPre,jdbcType=VARCHAR}, #{isElectronicContract,jdbcType=TINYINT}, #{riskEvaluationModel,jdbcType=TINYINT}, 
+      #{isNeedAssetCertification,jdbcType=TINYINT}, #{productMark,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hckj.common.domain.product.model.ProductInnovateModel">
+    insert into tb_product_innovate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="isScaled != null">
+        is_scaled,
+      </if>
+      <if test="isTest != null">
+        is_test,
+      </if>
+      <if test="isWdl != null">
+        is_wdl,
+      </if>
+      <if test="scaleAmount != null">
+        scale_amount,
+      </if>
+      <if test="scaleAlarmAmount != null">
+        scale_alarm_amount,
+      </if>
+      <if test="hasInvestAmount != null">
+        has_invest_amount,
+      </if>
+      <if test="remainAmount != null">
+        remain_amount,
+      </if>
+      <if test="minPurchaseAmount != null">
+        min_purchase_amount,
+      </if>
+      <if test="increaseAmount != null">
+        increase_amount,
+      </if>
+      <if test="scalePersion != null">
+        scale_persion,
+      </if>
+      <if test="scaleAlarmPersion != null">
+        scale_alarm_persion,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="productTypeId != null">
+        product_type_id,
+      </if>
+      <if test="achievementType != null">
+        achievement_type,
+      </if>
+      <if test="attribute != null">
+        attribute,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="periodRemark != null">
+        period_remark,
+      </if>
+      <if test="riskLevel != null">
+        risk_level,
+      </if>
+      <if test="allowRiskEvaluate != null">
+        allow_risk_evaluate,
+      </if>
+      <if test="investCategory != null">
+        invest_category,
+      </if>
+      <if test="hightlights != null">
+        hightlights,
+      </if>
+      <if test="isExceedPay != null">
+        is_exceed_pay,
+      </if>
+      <if test="exceedPayAmount != null">
+        exceed_pay_amount,
+      </if>
+      <if test="lfFoldRatio != null">
+        lf_fold_ratio,
+      </if>
+      <if test="pxFoldRatio != null">
+        px_fold_ratio,
+      </if>
+      <if test="commissionProportion != null">
+        commission_proportion,
+      </if>
+      <if test="productReview != null">
+        product_review,
+      </if>
+      <if test="riskPrompt != null">
+        risk_prompt,
+      </if>
+      <if test="productState != null">
+        product_state,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="onlineTime != null">
+        online_time,
+      </if>
+      <if test="establishTime != null">
+        establish_time,
+      </if>
+      <if test="raiseEndTime != null">
+        raise_end_time,
+      </if>
+      <if test="terminatePublishTime != null">
+        terminate_publish_time,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+      <if test="liquidationTime != null">
+        liquidation_time,
+      </if>
+      <if test="cashTime != null">
+        cash_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="yn != null">
+        yn,
+      </if>
+      <if test="hightlights2 != null">
+        hightlights2,
+      </if>
+      <if test="hightlights3 != null">
+        hightlights3,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="liquidationAuditState != null">
+        liquidation_audit_state,
+      </if>
+      <if test="closedPeriod != null">
+        closed_period,
+      </if>
+      <if test="parentProductTypeId != null">
+        parent_product_type_id,
+      </if>
+      <if test="productReview2 != null">
+        product_review2,
+      </if>
+      <if test="productReview3 != null">
+        product_review3,
+      </if>
+      <if test="productReview4 != null">
+        product_review4,
+      </if>
+      <if test="productReview5 != null">
+        product_review5,
+      </if>
+      <if test="isrecover != null">
+        isRecover,
+      </if>
+      <if test="backImgForAndroid != null">
+        back_img_for_android,
+      </if>
+      <if test="backImgForIos != null">
+        back_img_for_ios,
+      </if>
+      <if test="raiseType != null">
+        raise_type,
+      </if>
+      <if test="isAppDisplay != null">
+        is_app_display,
+      </if>
+      <if test="contractSignatureState != null">
+        contract_signature_state,
+      </if>
+      <if test="processNew != null">
+        process_new,
+      </if>
+      <if test="isPublic != null">
+        is_public,
+      </if>
+      <if test="productTagId != null">
+        product_tag_id,
+      </if>
+      <if test="investmentTrack != null">
+        investment_track,
+      </if>
+      <if test="investmentLogic != null">
+        investment_logic,
+      </if>
+      <if test="isDualRecord != null">
+        is_dual_record,
+      </if>
+      <if test="productPublishTip != null">
+        product_publish_tip,
+      </if>
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="jfProductTypeId != null">
+        jf_product_type_id,
+      </if>
+      <if test="jfParentProductTypeId != null">
+        jf_parent_product_type_id,
+      </if>
+      <if test="contractPre != null">
+        contract_pre,
+      </if>
+      <if test="isElectronicContract != null">
+        is_electronic_contract,
+      </if>
+      <if test="riskEvaluationModel != null">
+        risk_evaluation_model,
+      </if>
+      <if test="isNeedAssetCertification != null">
+        is_need_asset_certification,
+      </if>
+      <if test="productMark != null">
+        product_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="isScaled != null">
+        #{isScaled,jdbcType=TINYINT},
+      </if>
+      <if test="isTest != null">
+        #{isTest,jdbcType=TINYINT},
+      </if>
+      <if test="isWdl != null">
+        #{isWdl,jdbcType=TINYINT},
+      </if>
+      <if test="scaleAmount != null">
+        #{scaleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="scaleAlarmAmount != null">
+        #{scaleAlarmAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="hasInvestAmount != null">
+        #{hasInvestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remainAmount != null">
+        #{remainAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minPurchaseAmount != null">
+        #{minPurchaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="increaseAmount != null">
+        #{increaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="scalePersion != null">
+        #{scalePersion,jdbcType=INTEGER},
+      </if>
+      <if test="scaleAlarmPersion != null">
+        #{scaleAlarmPersion,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="productTypeId != null">
+        #{productTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="achievementType != null">
+        #{achievementType,jdbcType=TINYINT},
+      </if>
+      <if test="attribute != null">
+        #{attribute,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="periodRemark != null">
+        #{periodRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null">
+        #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="allowRiskEvaluate != null">
+        #{allowRiskEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="investCategory != null">
+        #{investCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="hightlights != null">
+        #{hightlights,jdbcType=VARCHAR},
+      </if>
+      <if test="isExceedPay != null">
+        #{isExceedPay,jdbcType=TINYINT},
+      </if>
+      <if test="exceedPayAmount != null">
+        #{exceedPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lfFoldRatio != null">
+        #{lfFoldRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="pxFoldRatio != null">
+        #{pxFoldRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionProportion != null">
+        #{commissionProportion,jdbcType=DECIMAL},
+      </if>
+      <if test="productReview != null">
+        #{productReview,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPrompt != null">
+        #{riskPrompt,jdbcType=VARCHAR},
+      </if>
+      <if test="productState != null">
+        #{productState,jdbcType=TINYINT},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=TINYINT},
+      </if>
+      <if test="onlineTime != null">
+        #{onlineTime,jdbcType=BIGINT},
+      </if>
+      <if test="establishTime != null">
+        #{establishTime,jdbcType=BIGINT},
+      </if>
+      <if test="raiseEndTime != null">
+        #{raiseEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="terminatePublishTime != null">
+        #{terminatePublishTime,jdbcType=BIGINT},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="liquidationTime != null">
+        #{liquidationTime,jdbcType=BIGINT},
+      </if>
+      <if test="cashTime != null">
+        #{cashTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="yn != null">
+        #{yn,jdbcType=TINYINT},
+      </if>
+      <if test="hightlights2 != null">
+        #{hightlights2,jdbcType=VARCHAR},
+      </if>
+      <if test="hightlights3 != null">
+        #{hightlights3,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=TINYINT},
+      </if>
+      <if test="liquidationAuditState != null">
+        #{liquidationAuditState,jdbcType=TINYINT},
+      </if>
+      <if test="closedPeriod != null">
+        #{closedPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="parentProductTypeId != null">
+        #{parentProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="productReview2 != null">
+        #{productReview2,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview3 != null">
+        #{productReview3,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview4 != null">
+        #{productReview4,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview5 != null">
+        #{productReview5,jdbcType=VARCHAR},
+      </if>
+      <if test="isrecover != null">
+        #{isrecover,jdbcType=TINYINT},
+      </if>
+      <if test="backImgForAndroid != null">
+        #{backImgForAndroid,jdbcType=VARCHAR},
+      </if>
+      <if test="backImgForIos != null">
+        #{backImgForIos,jdbcType=VARCHAR},
+      </if>
+      <if test="raiseType != null">
+        #{raiseType,jdbcType=TINYINT},
+      </if>
+      <if test="isAppDisplay != null">
+        #{isAppDisplay,jdbcType=TINYINT},
+      </if>
+      <if test="contractSignatureState != null">
+        #{contractSignatureState,jdbcType=TINYINT},
+      </if>
+      <if test="processNew != null">
+        #{processNew,jdbcType=TINYINT},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=TINYINT},
+      </if>
+      <if test="productTagId != null">
+        #{productTagId,jdbcType=INTEGER},
+      </if>
+      <if test="investmentTrack != null">
+        #{investmentTrack,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentLogic != null">
+        #{investmentLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="isDualRecord != null">
+        #{isDualRecord,jdbcType=TINYINT},
+      </if>
+      <if test="productPublishTip != null">
+        #{productPublishTip,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="jfProductTypeId != null">
+        #{jfProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="jfParentProductTypeId != null">
+        #{jfParentProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="contractPre != null">
+        #{contractPre,jdbcType=VARCHAR},
+      </if>
+      <if test="isElectronicContract != null">
+        #{isElectronicContract,jdbcType=TINYINT},
+      </if>
+      <if test="riskEvaluationModel != null">
+        #{riskEvaluationModel,jdbcType=TINYINT},
+      </if>
+      <if test="isNeedAssetCertification != null">
+        #{isNeedAssetCertification,jdbcType=TINYINT},
+      </if>
+      <if test="productMark != null">
+        #{productMark,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hckj.common.domain.product.model.ProductInnovateModel">
+    update tb_product_innovate
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="isScaled != null">
+        is_scaled = #{isScaled,jdbcType=TINYINT},
+      </if>
+      <if test="isTest != null">
+        is_test = #{isTest,jdbcType=TINYINT},
+      </if>
+      <if test="isWdl != null">
+        is_wdl = #{isWdl,jdbcType=TINYINT},
+      </if>
+      <if test="scaleAmount != null">
+        scale_amount = #{scaleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="scaleAlarmAmount != null">
+        scale_alarm_amount = #{scaleAlarmAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="hasInvestAmount != null">
+        has_invest_amount = #{hasInvestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remainAmount != null">
+        remain_amount = #{remainAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minPurchaseAmount != null">
+        min_purchase_amount = #{minPurchaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="increaseAmount != null">
+        increase_amount = #{increaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="scalePersion != null">
+        scale_persion = #{scalePersion,jdbcType=INTEGER},
+      </if>
+      <if test="scaleAlarmPersion != null">
+        scale_alarm_persion = #{scaleAlarmPersion,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="productTypeId != null">
+        product_type_id = #{productTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="achievementType != null">
+        achievement_type = #{achievementType,jdbcType=TINYINT},
+      </if>
+      <if test="attribute != null">
+        attribute = #{attribute,jdbcType=TINYINT},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="periodRemark != null">
+        period_remark = #{periodRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null">
+        risk_level = #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="allowRiskEvaluate != null">
+        allow_risk_evaluate = #{allowRiskEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="investCategory != null">
+        invest_category = #{investCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="hightlights != null">
+        hightlights = #{hightlights,jdbcType=VARCHAR},
+      </if>
+      <if test="isExceedPay != null">
+        is_exceed_pay = #{isExceedPay,jdbcType=TINYINT},
+      </if>
+      <if test="exceedPayAmount != null">
+        exceed_pay_amount = #{exceedPayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lfFoldRatio != null">
+        lf_fold_ratio = #{lfFoldRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="pxFoldRatio != null">
+        px_fold_ratio = #{pxFoldRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionProportion != null">
+        commission_proportion = #{commissionProportion,jdbcType=DECIMAL},
+      </if>
+      <if test="productReview != null">
+        product_review = #{productReview,jdbcType=VARCHAR},
+      </if>
+      <if test="riskPrompt != null">
+        risk_prompt = #{riskPrompt,jdbcType=VARCHAR},
+      </if>
+      <if test="productState != null">
+        product_state = #{productState,jdbcType=TINYINT},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=TINYINT},
+      </if>
+      <if test="onlineTime != null">
+        online_time = #{onlineTime,jdbcType=BIGINT},
+      </if>
+      <if test="establishTime != null">
+        establish_time = #{establishTime,jdbcType=BIGINT},
+      </if>
+      <if test="raiseEndTime != null">
+        raise_end_time = #{raiseEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="terminatePublishTime != null">
+        terminate_publish_time = #{terminatePublishTime,jdbcType=BIGINT},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="liquidationTime != null">
+        liquidation_time = #{liquidationTime,jdbcType=BIGINT},
+      </if>
+      <if test="cashTime != null">
+        cash_time = #{cashTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="yn != null">
+        yn = #{yn,jdbcType=TINYINT},
+      </if>
+      <if test="hightlights2 != null">
+        hightlights2 = #{hightlights2,jdbcType=VARCHAR},
+      </if>
+      <if test="hightlights3 != null">
+        hightlights3 = #{hightlights3,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=TINYINT},
+      </if>
+      <if test="liquidationAuditState != null">
+        liquidation_audit_state = #{liquidationAuditState,jdbcType=TINYINT},
+      </if>
+      <if test="closedPeriod != null">
+        closed_period = #{closedPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="parentProductTypeId != null">
+        parent_product_type_id = #{parentProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="productReview2 != null">
+        product_review2 = #{productReview2,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview3 != null">
+        product_review3 = #{productReview3,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview4 != null">
+        product_review4 = #{productReview4,jdbcType=VARCHAR},
+      </if>
+      <if test="productReview5 != null">
+        product_review5 = #{productReview5,jdbcType=VARCHAR},
+      </if>
+      <if test="isrecover != null">
+        isRecover = #{isrecover,jdbcType=TINYINT},
+      </if>
+      <if test="backImgForAndroid != null">
+        back_img_for_android = #{backImgForAndroid,jdbcType=VARCHAR},
+      </if>
+      <if test="backImgForIos != null">
+        back_img_for_ios = #{backImgForIos,jdbcType=VARCHAR},
+      </if>
+      <if test="raiseType != null">
+        raise_type = #{raiseType,jdbcType=TINYINT},
+      </if>
+      <if test="isAppDisplay != null">
+        is_app_display = #{isAppDisplay,jdbcType=TINYINT},
+      </if>
+      <if test="contractSignatureState != null">
+        contract_signature_state = #{contractSignatureState,jdbcType=TINYINT},
+      </if>
+      <if test="processNew != null">
+        process_new = #{processNew,jdbcType=TINYINT},
+      </if>
+      <if test="isPublic != null">
+        is_public = #{isPublic,jdbcType=TINYINT},
+      </if>
+      <if test="productTagId != null">
+        product_tag_id = #{productTagId,jdbcType=INTEGER},
+      </if>
+      <if test="investmentTrack != null">
+        investment_track = #{investmentTrack,jdbcType=VARCHAR},
+      </if>
+      <if test="investmentLogic != null">
+        investment_logic = #{investmentLogic,jdbcType=VARCHAR},
+      </if>
+      <if test="isDualRecord != null">
+        is_dual_record = #{isDualRecord,jdbcType=TINYINT},
+      </if>
+      <if test="productPublishTip != null">
+        product_publish_tip = #{productPublishTip,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="jfProductTypeId != null">
+        jf_product_type_id = #{jfProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="jfParentProductTypeId != null">
+        jf_parent_product_type_id = #{jfParentProductTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="contractPre != null">
+        contract_pre = #{contractPre,jdbcType=VARCHAR},
+      </if>
+      <if test="isElectronicContract != null">
+        is_electronic_contract = #{isElectronicContract,jdbcType=TINYINT},
+      </if>
+      <if test="riskEvaluationModel != null">
+        risk_evaluation_model = #{riskEvaluationModel,jdbcType=TINYINT},
+      </if>
+      <if test="isNeedAssetCertification != null">
+        is_need_asset_certification = #{isNeedAssetCertification,jdbcType=TINYINT},
+      </if>
+      <if test="productMark != null">
+        product_mark = #{productMark,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hckj.common.domain.product.model.ProductInnovateModel">
+    update tb_product_innovate
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      is_scaled = #{isScaled,jdbcType=TINYINT},
+      is_test = #{isTest,jdbcType=TINYINT},
+      is_wdl = #{isWdl,jdbcType=TINYINT},
+      scale_amount = #{scaleAmount,jdbcType=DECIMAL},
+      scale_alarm_amount = #{scaleAlarmAmount,jdbcType=DECIMAL},
+      has_invest_amount = #{hasInvestAmount,jdbcType=DECIMAL},
+      remain_amount = #{remainAmount,jdbcType=DECIMAL},
+      min_purchase_amount = #{minPurchaseAmount,jdbcType=DECIMAL},
+      increase_amount = #{increaseAmount,jdbcType=DECIMAL},
+      scale_persion = #{scalePersion,jdbcType=INTEGER},
+      scale_alarm_persion = #{scaleAlarmPersion,jdbcType=INTEGER},
+      source = #{source,jdbcType=TINYINT},
+      product_type_id = #{productTypeId,jdbcType=INTEGER},
+      achievement_type = #{achievementType,jdbcType=TINYINT},
+      attribute = #{attribute,jdbcType=TINYINT},
+      period = #{period,jdbcType=VARCHAR},
+      period_remark = #{periodRemark,jdbcType=VARCHAR},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      allow_risk_evaluate = #{allowRiskEvaluate,jdbcType=VARCHAR},
+      invest_category = #{investCategory,jdbcType=VARCHAR},
+      hightlights = #{hightlights,jdbcType=VARCHAR},
+      is_exceed_pay = #{isExceedPay,jdbcType=TINYINT},
+      exceed_pay_amount = #{exceedPayAmount,jdbcType=DECIMAL},
+      lf_fold_ratio = #{lfFoldRatio,jdbcType=DECIMAL},
+      px_fold_ratio = #{pxFoldRatio,jdbcType=DECIMAL},
+      commission_proportion = #{commissionProportion,jdbcType=DECIMAL},
+      product_review = #{productReview,jdbcType=VARCHAR},
+      risk_prompt = #{riskPrompt,jdbcType=VARCHAR},
+      product_state = #{productState,jdbcType=TINYINT},
+      audit_state = #{auditState,jdbcType=TINYINT},
+      online_time = #{onlineTime,jdbcType=BIGINT},
+      establish_time = #{establishTime,jdbcType=BIGINT},
+      raise_end_time = #{raiseEndTime,jdbcType=BIGINT},
+      terminate_publish_time = #{terminatePublishTime,jdbcType=BIGINT},
+      expire_time = #{expireTime,jdbcType=BIGINT},
+      liquidation_time = #{liquidationTime,jdbcType=BIGINT},
+      cash_time = #{cashTime,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      yn = #{yn,jdbcType=TINYINT},
+      hightlights2 = #{hightlights2,jdbcType=VARCHAR},
+      hightlights3 = #{hightlights3,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=TINYINT},
+      liquidation_audit_state = #{liquidationAuditState,jdbcType=TINYINT},
+      closed_period = #{closedPeriod,jdbcType=VARCHAR},
+      parent_product_type_id = #{parentProductTypeId,jdbcType=INTEGER},
+      product_review2 = #{productReview2,jdbcType=VARCHAR},
+      product_review3 = #{productReview3,jdbcType=VARCHAR},
+      product_review4 = #{productReview4,jdbcType=VARCHAR},
+      product_review5 = #{productReview5,jdbcType=VARCHAR},
+      isRecover = #{isrecover,jdbcType=TINYINT},
+      back_img_for_android = #{backImgForAndroid,jdbcType=VARCHAR},
+      back_img_for_ios = #{backImgForIos,jdbcType=VARCHAR},
+      raise_type = #{raiseType,jdbcType=TINYINT},
+      is_app_display = #{isAppDisplay,jdbcType=TINYINT},
+      contract_signature_state = #{contractSignatureState,jdbcType=TINYINT},
+      process_new = #{processNew,jdbcType=TINYINT},
+      is_public = #{isPublic,jdbcType=TINYINT},
+      product_tag_id = #{productTagId,jdbcType=INTEGER},
+      investment_track = #{investmentTrack,jdbcType=VARCHAR},
+      investment_logic = #{investmentLogic,jdbcType=VARCHAR},
+      is_dual_record = #{isDualRecord,jdbcType=TINYINT},
+      product_publish_tip = #{productPublishTip,jdbcType=VARCHAR},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      jf_product_type_id = #{jfProductTypeId,jdbcType=INTEGER},
+      jf_parent_product_type_id = #{jfParentProductTypeId,jdbcType=INTEGER},
+      contract_pre = #{contractPre,jdbcType=VARCHAR},
+      is_electronic_contract = #{isElectronicContract,jdbcType=TINYINT},
+      risk_evaluation_model = #{riskEvaluationModel,jdbcType=TINYINT},
+      is_need_asset_certification = #{isNeedAssetCertification,jdbcType=TINYINT},
+      product_mark = #{productMark,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: trade-microservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: trade-microservice
+
+mybatis:
+  mapperLocations: com/hckj/trade/**/*.xml
+
+
+
+

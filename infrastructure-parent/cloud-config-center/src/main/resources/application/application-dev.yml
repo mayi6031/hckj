@@ -1,0 +1,38 @@
+spring:
+  ###rabbitmq
+  rabbitmq:
+    addresses: localhost:5672
+    username: root
+    password: 123456
+    virtual-host: /
+    connection-timeout: 15000
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5
+        max-concurrency: 10
+  ###kafka
+  kafka:
+    bootstrap-servers: http://127.0.0.1:9092
+  ###mongodb
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/test
+
+##Redis
+redis:
+  cluster:
+    address: 192.168.10.241:7000,192.168.10.241:7001,192.168.10.241:7002,192.168.10.241:7003,192.168.10.241:7004,192.168.10.241:7005
+  sentinel:
+    master: redis-master
+    nodes: 192.168.10.241:25379
+  single:
+    ip: 127.0.0.1
+    port: 6379
+  password: foobared
+  timeout: 6000
+  maxTotal: 30
+  maxIdle: 30
+  minIdle: 5
+  maxWaitMillis: 1000
+  maxRedirections: 5

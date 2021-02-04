@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: product-microservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: product-microservice
+
+mybatis:
+  mapperLocations: com/hckj/product/**/*.xml

@@ -1,0 +1,24 @@
+server:
+  port: 7001
+
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/jdbc/,classpath:/application/,classpath:/application/product/,classpath:/application/trade/,classpath:/application/order/,classpath:/application/gateway/
+
+##eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.17.53.139:8761/eureka/
+  instance:
+    instance-id: config-center #自定义服务名称信息
+    prefer-ip-address: true #访问路径可以显示ip地址
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 30
+
+# Logger config
+logging:
+  config: classpath:log4j2/log4j2-dev.xml

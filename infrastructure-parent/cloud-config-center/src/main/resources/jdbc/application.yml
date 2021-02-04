@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    ##连接池最大空闲
+    ##spring.datasource.maxIdle=30
+    ##连接池最小空闲3
+    minIdle: 5
+    ##连接池最大使用连接数量30
+    maxActive: 100
+    initialSize: 30
+    ##获取连接最大等待时间
+    maxWait: 60000
+    ##配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    ##配置一个连接在池中最小生存的时间，单位是毫秒25200000
+    minEvictableIdleTimeMillis: 300000
+    ##验证查询
+    validationQuery: select 1
+    ##打开removeAbandoned功能
+    removeAbandoned: true
+    ##1800秒，也就是30分钟
+    removeAbandonedTimeout: 1800
+    ##关闭abanded连接时输出错误日志
+    logAbandoned: true
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 50
+    filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    connectionProperties: druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+    druidLoginName: dmcp # 登录druid的账号
+    druidPassword: dmcp # 登录druid的密码
+    type: com.alibaba.druid.pool.DruidDataSource

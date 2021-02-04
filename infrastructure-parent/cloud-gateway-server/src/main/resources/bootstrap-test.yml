@@ -1,0 +1,15 @@
+server:
+  port: 8086
+
+##eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.17.53.139:8761/eureka/
+  instance:
+    instance-id: gateway-server #自定义服务名称信息
+    prefer-ip-address: true #访问路径可以显示ip地址
+
+# Logger config
+logging:
+  config: classpath:log4j2/log4j2-test.xml

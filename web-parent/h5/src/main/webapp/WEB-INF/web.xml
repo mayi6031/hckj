@@ -1,0 +1,34 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+    <display-name>manage</display-name>
+
+    <servlet>
+        <servlet-name>testAa</servlet-name>
+        <servlet-class>com.hckj.manage.servlet.TestAa</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>testAa</servlet-name>
+        <url-pattern>/testAa</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>testBb</servlet-name>
+        <servlet-class>com.hckj.manage.servlet.TestBb</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>testBb</servlet-name>
+        <url-pattern>/testBb</url-pattern>
+    </servlet-mapping>
+
+</web-app>
