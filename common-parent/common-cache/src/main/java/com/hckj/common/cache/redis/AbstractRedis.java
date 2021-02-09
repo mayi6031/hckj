@@ -3,6 +3,7 @@ package com.hckj.common.cache.redis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.ScanParams;
 
 import java.util.List;
 
@@ -132,6 +133,22 @@ public abstract class AbstractRedis implements RedisUtil {
         }
     }
 
+    public Long incr(String key) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            long count = jedis.incr(key);
+            return count;
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
+
     public Long incr(String key, int seconds) {
         key = getPreKey(key);
         Jedis jedis = null;
@@ -212,6 +229,92 @@ public abstract class AbstractRedis implements RedisUtil {
         try {
             jedis = getJedis();
             return jedis.lpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return null;
+    }
+
+    public Long zadd(String key, double score, String value) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.zadd(key, score, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
+    public Long zrem(String key, String value) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.zrem(key, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
+    public Long hset(String key, String field, String value) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.hset(key, field, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
+    public Long hdel(String key, String field) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.hdel(key, field);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
+    public String getSet(String key, String field) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.getSet(key, field);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return null;
+    }
+
+    public List<String> scan(String key) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            ScanParams scanParams = new ScanParams();
+            scanParams.match(key + "*");
+            return jedis.scan("0", scanParams).getResult();
         } catch (Exception e) {
             log.warn(e.getMessage());
         } finally {

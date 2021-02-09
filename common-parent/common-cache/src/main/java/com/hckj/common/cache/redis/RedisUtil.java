@@ -24,6 +24,8 @@ public interface RedisUtil {
 
     void del(String key);
 
+    Long incr(String key);
+
     Long incr(String key, int seconds);
 
     void lset(String key, String... value);
@@ -35,4 +37,16 @@ public interface RedisUtil {
     Long rpush(String key, String value);
 
     String lpop(String key);
+
+    Long zadd(String key, double score, String value);
+
+    Long zrem(String key, String value);
+
+    Long hset(String key, String field, String value);
+
+    Long hdel(String key, String field);
+
+    String getSet(String key, String value);
+
+    List<String> scan(String key);
 }

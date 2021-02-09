@@ -3,8 +3,6 @@ package com.hckj.product.microservice.controller;
 import com.alibaba.fastjson.JSON;
 import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.common.mongo.domain.model.user.User;
-import com.hckj.common.mq.rabbitmq.MessageTypeEnum;
-import com.hckj.common.mq.rabbitmq.RabbitMqUtil;
 import com.hckj.common.web.DataResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +26,6 @@ public class TestController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private RabbitMqUtil rabbitMqUtil;
-
-    @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
@@ -38,8 +33,6 @@ public class TestController {
 
     @PostMapping("/test")
     public DataResponse<String> test(@RequestBody String name) {
-        // 测试RabbitMq
-        rabbitMqUtil.sendMessage(MessageTypeEnum.PRODUCT_CREATE, name);
         // 测试Redis
         redisUtil.set(name, "test_" + name);
         logger.info("test_redis:" + redisUtil.get(name));

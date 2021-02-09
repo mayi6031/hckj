@@ -33,9 +33,9 @@ public class SysConfigController implements SysConfigFeign {
     @Autowired
     private ProductInnovateFeign productInnovateFeign;
     @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
     private TccSysConfigService tccSysConfigService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public DataResponse<SysConfigModel> getSysConfigInfo(@RequestBody Integer id) {

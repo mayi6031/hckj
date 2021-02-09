@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.ScanParams;
 
 import java.util.HashSet;
 import java.util.List;
@@ -180,6 +181,19 @@ public class RedisCluster implements RedisUtil {
         }
     }
 
+    public Long incr(String key) {
+        key = getPreKey(key);
+        try {
+            long count = jedisCluster.incr(key);
+            return count;
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
     public Long incr(String key, int seconds) {
         key = getPreKey(key);
         try {
@@ -248,6 +262,86 @@ public class RedisCluster implements RedisUtil {
         key = getPreKey(key);
         try {
             return jedisCluster.lpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return null;
+    }
+
+    @Override
+    public Long zadd(String key, double score, String value) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.zadd(key, score, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
+    @Override
+    public Long zrem(String key, String value) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.zrem(key, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
+    @Override
+    public Long hset(String key, String field, String value) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.hset(key, field, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
+    @Override
+    public Long hdel(String key, String field) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.hdel(key, field);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
+    @Override
+    public String getSet(String key, String field) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.getSet(key, field);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return null;
+    }
+
+    @Override
+    public List<String> scan(String key) {
+        key = getPreKey(key);
+        try {
+            ScanParams scanParams = new ScanParams();
+            scanParams.match(key + "*");
+            return jedisCluster.scan("0", scanParams).getResult();
         } catch (Exception e) {
             log.warn(e.getMessage());
         } finally {

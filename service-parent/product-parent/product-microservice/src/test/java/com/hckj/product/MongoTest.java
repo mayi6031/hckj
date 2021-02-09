@@ -1,14 +1,12 @@
 package com.hckj.product;
 
 import com.alibaba.fastjson.JSON;
-import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.common.mongo.domain.model.user.User;
 import com.hckj.common.mongo.utils.MongoOperateBase;
 import com.hckj.common.mongo.utils.MongoOperateMerge;
 import com.hckj.common.mongo.utils.MultiOprHelp;
 import com.hckj.product.microservice.ProductServiceMain;
 import com.hckj.product.microservice.base.SpringContextUtil;
-import com.hckj.product.microservice.service.ProductInnovateService;
 import com.hckj.product.microservice.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 

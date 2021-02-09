@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,13 +33,10 @@ public class ProductInnovateController implements ProductInnovateFeign {
     @Autowired
     private TccProductInnovateService tccProductInnovateService;
 
-    @Value("${foo}")
-    private String testValue;
-
     @Override
     @ApiOperation(value = "查询产品", notes = "根据产品id获取创新产品信息", response = DataResponse.class)
     public DataResponse<ProductInnovateModel> getProductInnovateInfo(@RequestBody Integer id) {
-        logger.info("getProductInfo，参数：" + id + ",foo:" + testValue);
+        logger.info("getProductInfo，参数：" + id);
         try {
             if (id == null) {
                 return DataResponse.no("参数不能为空");
@@ -67,7 +63,7 @@ public class ProductInnovateController implements ProductInnovateFeign {
     @Override
     @ApiOperation(value = "修改产品", notes = "根据产品id修改创新产品信息", response = DataResponse.class)
     public DataResponse<String> updateProductInnovateInfo(@RequestBody Integer id) {
-        logger.info("updateProductInnovateInfo，参数：" + id + ",foo:" + testValue);
+        logger.info("updateProductInnovateInfo，参数：" + id);
         try {
             if (id == null) {
                 return DataResponse.no("参数不能为空");
@@ -86,7 +82,7 @@ public class ProductInnovateController implements ProductInnovateFeign {
     @Override
     @ApiOperation(value = "修改产品测试", notes = "根据产品id修改创新产品信息", response = DataResponse.class)
     public DataResponse<String> updateProductInnovateInfoTest(@RequestBody Integer id) {
-        logger.info("updateProductInnovateInfoTest，参数：" + id + ",foo:" + testValue);
+        logger.info("updateProductInnovateInfoTest，参数：" + id);
         try {
             if (id == null) {
                 return DataResponse.no("参数不能为空");
