@@ -246,6 +246,18 @@ public class RedisCluster implements RedisUtil {
         return 0L;
     }
 
+    public Long lpush(String key, String value) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.lpush(key, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return 0L;
+    }
+
     public Long rpush(String key, String value) {
         key = getPreKey(key);
         try {
@@ -262,6 +274,42 @@ public class RedisCluster implements RedisUtil {
         key = getPreKey(key);
         try {
             return jedisCluster.lpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return null;
+    }
+
+    public String rpop(String key) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.rpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return null;
+    }
+
+    public List<String> brpop(String key) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.brpop(0, key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+
+        }
+        return null;
+    }
+
+    public List<String> blpop(String key) {
+        key = getPreKey(key);
+        try {
+            return jedisCluster.blpop(0, key);
         } catch (Exception e) {
             log.warn(e.getMessage());
         } finally {

@@ -13,7 +13,6 @@ public enum BusiTypeHandler {
      */
     ORDER_FINISH_BUSI_TASK(BusiType.ORDER_FINISH_BUSI);
 
-
     /**
      * 监听的事件类型
      */

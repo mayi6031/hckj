@@ -209,6 +209,20 @@ public abstract class AbstractRedis implements RedisUtil {
         return 0L;
     }
 
+    public Long lpush(String key, String value) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.lpush(key, value);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return 0L;
+    }
+
     public Long rpush(String key, String value) {
         key = getPreKey(key);
         Jedis jedis = null;
@@ -229,6 +243,48 @@ public abstract class AbstractRedis implements RedisUtil {
         try {
             jedis = getJedis();
             return jedis.lpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return null;
+    }
+
+    public String rpop(String key) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.rpop(key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return null;
+    }
+
+    public List<String> brpop(String key) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.brpop(0, key);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        } finally {
+            close(jedis);
+        }
+        return null;
+    }
+
+    public List<String> blpop(String key) {
+        key = getPreKey(key);
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.blpop(0, key);
         } catch (Exception e) {
             log.warn(e.getMessage());
         } finally {

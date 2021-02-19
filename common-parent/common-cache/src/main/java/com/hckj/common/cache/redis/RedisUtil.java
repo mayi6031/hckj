@@ -34,9 +34,17 @@ public interface RedisUtil {
 
     long lsize(String key);
 
+    Long lpush(String key, String value);
+
     Long rpush(String key, String value);
 
     String lpop(String key);
+
+    String rpop(String key);
+
+    List<String> brpop(String key);
+
+    List<String> blpop(String key);
 
     Long zadd(String key, double score, String value);
 

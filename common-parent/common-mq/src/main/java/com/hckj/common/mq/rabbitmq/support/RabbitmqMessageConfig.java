@@ -8,6 +8,7 @@ import com.hckj.common.domain.mq.BusiType;
 import com.hckj.common.domain.mq.BusiTypeHandler;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageListener;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageSender;
+import com.hckj.common.mq.rabbitmq.delay.DelayedRabbitMqConfig;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.util.ReflectionUtils;
@@ -42,6 +44,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author yuhui
  */
+@Import(DelayedRabbitMqConfig.class)
 public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAware, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(RabbitmqMessageConfig.class);
     /**
@@ -84,7 +87,7 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
     }
 
     @Bean
-    public RabbitmqMessageSender eventMessageSender() {
+    public RabbitmqMessageSender busiMessageSender() {
         return new RabbitmqMessageSender();
     }
 
@@ -144,6 +147,7 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
                 if (preFetchCount > 0) {
                     listenerContainer.setPrefetchCount(preFetchCount);
                 }
+                // 这里实现rabbitmq的队列顺序消费
                 boolean isSequentialExec = false;
                 if ("1".equals(concurrentConsumers) && "1".equals(maxConcurrentConsumers) && 1 == preFetchCount) {
                     isSequentialExec = true;

@@ -1,8 +1,9 @@
 package com.hckj.common.mq.rabbitmq;
 
-import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.common.cache.constant.CacheKeyPrefix;
+import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.common.domain.mq.BusiType;
+import com.hckj.common.mq.rabbitmq.delay.constant.DelayQueuePrefix;
 import com.hckj.common.mq.rabbitmq.support.RabbitmqCorrelationData;
 import com.hckj.common.mq.rabbitmq.support.RabbitmqMessageHelper;
 import org.slf4j.Logger;
@@ -46,4 +47,18 @@ public class RabbitmqMessageSender {
         rabbitTemplate.convertAndSend(busiType.toString(), null,
                 json, new RabbitmqCorrelationData(busiKey, busiType));
     }
+
+    /**
+     * 发送延迟消息
+     *
+     * @param msg
+     * @param delayTime
+     */
+    public void sendDelayMsg(String msg, Integer delayTime) {
+        rabbitTemplate.convertAndSend(DelayQueuePrefix.DELAYED_EXCHANGE_NAME, DelayQueuePrefix.DELAYED_ROUTING_KEY, msg, a -> {
+            a.getMessageProperties().setDelay(delayTime);
+            return a;
+        });
+    }
+
 }
