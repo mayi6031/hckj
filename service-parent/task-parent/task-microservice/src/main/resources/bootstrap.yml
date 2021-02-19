@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: task-microservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      label: task-microservice
+
