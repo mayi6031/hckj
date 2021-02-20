@@ -1,8 +1,5 @@
 package com.hckj.task.service;
 
-import com.alibaba.fastjson.JSON;
-import com.hckj.common.domain.product.model.ProductInnovateModel;
-import com.hckj.common.feign.product.ProductInnovateFeign;
 import com.hckj.task.config.ScheduleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,15 +15,15 @@ public class TaskService {
 
     @Autowired
     private ScheduleConfig scheduleConfig;
-    @Autowired
-    private ProductInnovateFeign productInnovateFeign;
+//    @Autowired
+//    private ProductInnovateFeign productInnovateFeign;
 
     @Scheduled(cron = "0/3 * * * * ?")
     public void task1() {
         if (scheduleConfig.locked(Thread.currentThread().getStackTrace()[1])) {
             System.out.println(Thread.currentThread().getName() + " | task1--" + sdf.format(new Date()));
-            ProductInnovateModel productInnovateModel = productInnovateFeign.getProductInnovateInfo(1).getDataWithException();
-            System.out.println(JSON.toJSONString(productInnovateModel.getName()));
+//            ProductInnovateModel productInnovateModel = productInnovateFeign.getProductInnovateInfo(1).getDataWithException();
+//            System.out.println(JSON.toJSONString(productInnovateModel.getName()));
         }
     }
 

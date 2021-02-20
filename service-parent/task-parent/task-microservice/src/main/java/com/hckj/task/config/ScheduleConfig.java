@@ -1,6 +1,5 @@
 package com.hckj.task.config;
 
-import com.alibaba.fastjson.JSON;
 import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.task.constant.TaskConstant;
 import org.slf4j.Logger;
@@ -20,9 +19,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
+import javax.annotation.PreDestroy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -31,6 +33,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableAsync
 public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, DisposableBean {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private Map<String, String> scheduleKeyMap = new ConcurrentHashMap<>();
 
     @Autowired
     private Environment environment;
@@ -82,21 +86,15 @@ public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, Di
         };
     }
 
-    @Override
+    @PreDestroy
     public void destroy() throws Exception {
-        List<String> taskList = redisUtil.scan(TaskConstant.TASK_UNI_PRE + environment.getProperty(TaskConstant.SPRING_APPLICATION_NAME));
-        logger.info("服务销毁，集群任务待清除key列表: {}", JSON.toJSONString(taskList));
-        if (taskList == null || taskList.size() == 0) {
-            return;
+        Iterator<String> it = scheduleKeyMap.keySet().iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            logger.info("集群任务清除key:" + key);
+            redisUtil.del(key);
         }
-        for (String task : taskList) {
-            String cacheAddress = redisUtil.get(task);
-            String localAddress = getLocalAddress();
-            if (cacheAddress != null && cacheAddress.equals(localAddress)) {
-                logger.info("集群任务清除key:{}，value:{}", task, localAddress);
-                redisUtil.del(task);
-            }
-        }
+        logger.info("集群任务清除key完毕！");
     }
 
     /**
@@ -110,9 +108,27 @@ public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, Di
         String localAddress = getLocalAddress();
         String cacheAddress = redisUtil.get(tmpKey);
         if (cacheAddress == null) {
-            return redisUtil.setnx(tmpKey, localAddress);
+            boolean isLock = redisUtil.setnx(tmpKey, localAddress);
+            flushScheduleKeyMap(isLock, tmpKey);
+            return isLock;
         }
-        return cacheAddress.equals(localAddress);
+        boolean isLock = cacheAddress.equals(localAddress);
+        flushScheduleKeyMap(isLock, tmpKey);
+        return isLock;
+    }
+
+    /**
+     * 若抢占锁成功，就把key放入map中
+     *
+     * @param isLock
+     * @param key
+     */
+    private void flushScheduleKeyMap(boolean isLock, String key) {
+        if (isLock) {
+            if (!scheduleKeyMap.containsKey(key)) {
+                scheduleKeyMap.put(key, String.valueOf(System.currentTimeMillis()));
+            }
+        }
     }
 
     /**
@@ -129,5 +145,4 @@ public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, Di
             return null;
         }
     }
-
 }
