@@ -89,12 +89,12 @@ public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, Di
         if (taskList == null || taskList.size() == 0) {
             return;
         }
-        for (String tmp : taskList) {
-            String taskData = redisUtil.get(tmp);
+        for (String task : taskList) {
+            String cacheAddress = redisUtil.get(task);
             String localAddress = getLocalAddress();
-            if (taskData != null && taskData.equals(localAddress)) {
-                logger.info("集群任务清除key:{}，value:{}", tmp, localAddress);
-                redisUtil.del(tmp);
+            if (cacheAddress != null && cacheAddress.equals(localAddress)) {
+                logger.info("集群任务清除key:{}，value:{}", task, localAddress);
+                redisUtil.del(task);
             }
         }
     }
@@ -105,20 +105,14 @@ public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer, Di
      * @return
      */
     public boolean locked(StackTraceElement stackTraceElement) {
-        String key = stackTraceElement.getClassName() + ":" + stackTraceElement.getMethodName();
-        String tmpKey = TaskConstant.TASK_UNI_PRE + environment.getProperty(TaskConstant.SPRING_APPLICATION_NAME) + "_" + key;
+        String methodPath = stackTraceElement.getClassName() + ":" + stackTraceElement.getMethodName();
+        String tmpKey = TaskConstant.TASK_UNI_PRE + environment.getProperty(TaskConstant.SPRING_APPLICATION_NAME) + "_" + methodPath;
         String localAddress = getLocalAddress();
-        String aa = redisUtil.get(tmpKey);
-        if (aa == null) {
-            boolean exist = redisUtil.setnx(tmpKey, localAddress);
-            return exist;
-        } else {
-            if (aa.equals(localAddress)) {
-                return true;
-            } else {
-                return false;
-            }
+        String cacheAddress = redisUtil.get(tmpKey);
+        if (cacheAddress == null) {
+            return redisUtil.setnx(tmpKey, localAddress);
         }
+        return cacheAddress.equals(localAddress);
     }
 
     /**

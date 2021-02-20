@@ -20,12 +20,19 @@ import java.util.concurrent.ScheduledFuture;
  */
 @Component
 public class DynamicSchedule {
-
     private Map<String, ScheduledFuture<?>> scheduledFutureMap = new ConcurrentHashMap<>();
 
     @Autowired
     private TaskScheduler taskScheduler;
 
+    /**
+     * 开启任务
+     *
+     * @param businessCode
+     * @param cron
+     * @param runnable
+     * @return
+     */
     public ScheduledFuture<?> startJob(String businessCode, String cron, Runnable runnable) {
         if (scheduledFutureMap.containsKey(businessCode)) {
             return scheduledFutureMap.get(businessCode);
@@ -40,6 +47,12 @@ public class DynamicSchedule {
         return scheduledFuture;
     }
 
+    /**
+     * 停止任务
+     *
+     * @param businessCode
+     * @return
+     */
     public boolean stopJob(String businessCode) {
         if (scheduledFutureMap.containsKey(businessCode)) {
             ScheduledFuture<?> scheduledFuture = scheduledFutureMap.get(businessCode);
@@ -51,6 +64,14 @@ public class DynamicSchedule {
         return false;
     }
 
+    /**
+     * 修改任务
+     *
+     * @param businessCode
+     * @param cron
+     * @param runnable
+     * @return
+     */
     public ScheduledFuture<?> modifyJob(String businessCode, String cron, Runnable runnable) {
         stopJob(businessCode);
         return startJob(businessCode, cron, runnable);
