@@ -294,8 +294,8 @@ public class RedisCluster implements RedisUtil {
         return null;
     }
 
-    public List<String> brpop(String key) {
-        key = getPreKey(key);
+    public List<String> brpop(String... key) {
+//        key = getPreKey(key);
         try {
             return jedisCluster.brpop(0, key);
         } catch (Exception e) {

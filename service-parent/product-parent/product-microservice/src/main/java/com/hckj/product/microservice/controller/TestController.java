@@ -5,7 +5,8 @@ import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.common.mongo.domain.model.user.User;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageSender;
 import com.hckj.common.web.DataResponse;
-import com.hckj.product.microservice.service.blockQueue.BlockQueueService;
+import com.hckj.product.microservice.service.blockQueue.BlockQueueEnum;
+import com.hckj.product.microservice.service.blockQueue.BlockQueueProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -39,7 +39,7 @@ public class TestController {
     private RabbitmqMessageSender rabbitmqMessageSender;
 
     @Autowired
-    private BlockQueueService blockQueueService;
+    private BlockQueueProcessor blockQueueProcessor;
 
     @PostMapping("/test")
     public DataResponse<String> test(@RequestBody String name) {
@@ -61,11 +61,18 @@ public class TestController {
     }
 
     @PostMapping("/sendMsg")
-    public DataResponse<String> sendMsg(String key, String value) {
-        logger.info("sendMsg,key：{}，value：{}", key, value);
-        for (int k = 0; k < 100; k++) {
-            blockQueueService.pushToQueue(key + "-" + k, value + "-" + k);
-        }
+    public DataResponse<String> sendMsg(String value) {
+        logger.info("sendMsg,value：{}", value);
+        new Thread(() -> {
+            for (int k = 1; k <= 50; k++) {
+                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST, value + "-" + k);
+            }
+        }).start();
+        new Thread(() -> {
+            for (int k = 51; k <= 100; k++) {
+                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST2, value + "-" + k);
+            }
+        }).start();
         return DataResponse.ok("ok");
     }
 }

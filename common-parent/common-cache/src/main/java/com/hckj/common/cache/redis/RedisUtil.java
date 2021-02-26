@@ -42,7 +42,7 @@ public interface RedisUtil {
 
     String rpop(String key);
 
-    List<String> brpop(String key);
+    List<String> brpop(String... key);
 
     List<String> blpop(String key);
 

@@ -265,8 +265,8 @@ public abstract class AbstractRedis implements RedisUtil {
         return null;
     }
 
-    public List<String> brpop(String key) {
-        key = getPreKey(key);
+    public List<String> brpop(String... key) {
+//        key = getPreKey(key);
         Jedis jedis = null;
         try {
             jedis = getJedis();
