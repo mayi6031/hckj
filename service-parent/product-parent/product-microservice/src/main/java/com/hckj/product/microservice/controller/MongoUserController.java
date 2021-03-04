@@ -4,7 +4,7 @@ import com.hckj.common.mongo.domain.user.condition.UserCondition;
 import com.hckj.common.mongo.domain.model.user.User;
 import com.hckj.common.mongo.page.MPage;
 import com.hckj.common.web.DataResponse;
-import com.hckj.product.microservice.service.UserService;
+import com.hckj.product.microservice.service.impl.MongoUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class UserController {
+public class MongoUserController {
 
     @Autowired
-    private UserService userService;
+    private MongoUserService userService;
 
     @PostMapping("/selectUserByName")
     public DataResponse<User> selectUserByName(@RequestBody UserCondition userCondition) {

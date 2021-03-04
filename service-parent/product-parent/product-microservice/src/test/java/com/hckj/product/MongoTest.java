@@ -7,7 +7,7 @@ import com.hckj.common.mongo.utils.MongoOperateMerge;
 import com.hckj.common.mongo.utils.MultiOprHelp;
 import com.hckj.product.microservice.ProductServiceMain;
 import com.hckj.product.microservice.base.SpringContextUtil;
-import com.hckj.product.microservice.service.UserService;
+import com.hckj.product.microservice.service.impl.MongoUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class MongoTest {
     @Test
     public void getData() {
         try {
-            UserService userService = SpringContextUtil.getBean(UserService.class);
+            MongoUserService userService = SpringContextUtil.getBean(MongoUserService.class);
 
             MultiOprHelp multiOpr = MongoOperateBase.begin().in("name", Arrays.asList("test", "酒仙")).end();
 

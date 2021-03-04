@@ -43,6 +43,10 @@
             <AppenderRef ref="AsyncAppender"/>
             <AppenderRef ref="Console"/>
         </Logger>
+        <Logger name="org.apache.kafka" level="WARN">
+        </Logger>
+        <Logger name="org.springframework.kafka" level="WARN">
+        </Logger>
         <Logger name="com.netflix.discovery" level="OFF">
         </Logger>
     </Loggers>

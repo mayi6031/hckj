@@ -6,14 +6,26 @@ spring:
     password: 123456
     virtual-host: /
     connection-timeout: 15000
-    listener:
-      simple:
-        acknowledge-mode: manual
-        concurrency: 5
-        max-concurrency: 10
   ###kafka
   kafka:
     bootstrap-servers: http://127.0.0.1:9092
+    producer:
+      retries: 0
+      linger: 1
+      batch.size: 4096
+      buffer.memory: 40960
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      enable-auto-commit: true
+      auto.commit.interval: 100
+      auto.offset.reset: earliest
+      session.timeout: 6000
+      group-id: default_consumer_group #群组ID
+      concurrency: 10
+      max.pollrecordes: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   ###mongodb
   data:
     mongodb:

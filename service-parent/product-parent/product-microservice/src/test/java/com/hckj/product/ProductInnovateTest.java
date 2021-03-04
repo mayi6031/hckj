@@ -3,7 +3,7 @@ package com.hckj.product;
 import com.alibaba.fastjson.JSON;
 import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.product.microservice.ProductServiceMain;
-import com.hckj.product.microservice.service.ProductInnovateService;
+import com.hckj.product.microservice.service.impl.ProductInnovateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

@@ -1,11 +1,3 @@
-foo: foo version microservice
-
-##mq
-mq:
-  defaultExchange: amqpExchange # 默认交换器
-  queue: messageTestQueue # 队列名
-  routeKey: messageTestQueue_key # 路由key
-
 spring:
   # 这里配置分组
   cloud:

@@ -1,5 +1,6 @@
 package com.hckj.product.microservice.service.blockQueue;
 
+import com.alibaba.fastjson.JSON;
 import com.hckj.common.cache.redis.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class BlockQueueProcessor implements InitializingBean {
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
-    private BlockQueueBusinessProcess blockQueueBusinessProcess;
+    private QueueBusinessProcess queueBusinessProcess;
 
     // 处理异步请求的阻塞队列
     private LinkedBlockingQueue<BlockQueueHelp> blockingQueue = new LinkedBlockingQueue<>();
@@ -45,14 +46,9 @@ public class BlockQueueProcessor implements InitializingBean {
                 List<Future<String>> futureList = new ArrayList<>();
                 for (int k = 0; k < keyLength; k++) {
                     BlockQueueCallable callable = new BlockQueueCallable(keyList.get(k), "线程" + k);
-                    callable.setBlockQueueBusinessProcess(blockQueueBusinessProcess);
+                    callable.setQueueBusinessProcess(queueBusinessProcess);
                     Future<String> future = executorService.submit(callable);
                     futureList.add(future);
-                }
-                // 关闭线程池
-                if (!executorService.isShutdown()) {
-                    log.info("线程池关闭");
-                    executorService.shutdown();
                 }
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
@@ -69,10 +65,10 @@ public class BlockQueueProcessor implements InitializingBean {
 
         private String threadName;
         private String key;
-        private BlockQueueBusinessProcess blockQueueBusinessProcess;
+        private QueueBusinessProcess queueBusinessProcess;
 
-        public void setBlockQueueBusinessProcess(BlockQueueBusinessProcess blockQueueBusinessProcess) {
-            this.blockQueueBusinessProcess = blockQueueBusinessProcess;
+        public void setQueueBusinessProcess(QueueBusinessProcess queueBusinessProcess) {
+            this.queueBusinessProcess = queueBusinessProcess;
         }
 
         public BlockQueueCallable(String key, String threadName) {
@@ -88,7 +84,10 @@ public class BlockQueueProcessor implements InitializingBean {
             try {
                 while (true) {
                     List<String> list = redisUtil.brpop(key);
-                    blockQueueBusinessProcess.processBusiness(key, list.get(1));
+                    log.info("处理key：{},cacheList:{}", key, JSON.toJSONString(list));
+                    if (list != null && list.size() > 1) {
+                        queueBusinessProcess.processBusiness(key, list.get(1));
+                    }
                 }
             } catch (Exception e) {
                 log.error("多线程处理阻塞队列出错，key=" + key, e);

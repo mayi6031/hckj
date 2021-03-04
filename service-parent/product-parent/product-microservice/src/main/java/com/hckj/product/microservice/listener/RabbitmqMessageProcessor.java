@@ -5,19 +5,12 @@ import com.hckj.common.domain.mq.BusiType;
 import com.hckj.common.domain.mq.BusiTypeHandler;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageListener;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageSender;
-import com.hckj.common.mq.rabbitmq.delay.constant.DelayQueuePrefix;
-import com.rabbitmq.client.Channel;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.Date;
 
 
 /**
@@ -55,17 +48,9 @@ public class RabbitmqMessageProcessor implements InitializingBean {
         }
     }
 
-    @RabbitListener(queues = DelayQueuePrefix.DELAYED_QUEUE_NAME)
-    public void receiveDel(Message message, Channel channel) throws IOException {
-        String msg = new String(message.getBody());
-        log.info("延时队列收到消息：{}，当前时间：{}", msg, new Date());
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-    }
-
-
     @Override
     public void afterPropertiesSet() throws Exception {
-        for (int k = 1; k <= 1000; k++) {
+        for (int k = 1; k <= 100; k++) {
             rabbitmqMessageSender.send(BusiType.ORDER_CREATE_BUSI, "order_" + k, "orderData_" + k);
         }
     }

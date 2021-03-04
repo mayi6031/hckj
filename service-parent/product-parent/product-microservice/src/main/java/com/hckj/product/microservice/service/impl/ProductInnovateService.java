@@ -1,4 +1,4 @@
-package com.hckj.product.microservice.service;
+package com.hckj.product.microservice.service.impl;
 
 import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.product.microservice.dao.ProductInnovateDao;

@@ -5,7 +5,7 @@ import com.hckj.common.cache.redis.RedisUtil;
 import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.common.feign.product.ProductInnovateFeign;
 import com.hckj.common.web.DataResponse;
-import com.hckj.product.microservice.service.ProductInnovateService;
+import com.hckj.product.microservice.service.impl.ProductInnovateService;
 import com.hckj.product.microservice.service.TccProductInnovateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

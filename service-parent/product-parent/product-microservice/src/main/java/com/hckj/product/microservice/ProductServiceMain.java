@@ -1,5 +1,6 @@
 package com.hckj.product.microservice;
 
+import com.hckj.common.mq.kafka.support.EnableKafkaMessage;
 import com.hckj.common.mq.rabbitmq.support.EnableRabbitmqMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients(basePackages = {"com.hckj.common.feign"})
 @ComponentScan(basePackages = {"com.hckj"})
 @EnableRabbitmqMessage
+@EnableKafkaMessage
 public class ProductServiceMain implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceMain.class);
 

@@ -1,4 +1,4 @@
-package com.hckj.product.microservice.service;
+package com.hckj.product.microservice.service.impl;
 
 import com.hckj.common.mongo.base.BaseMongoImpl;
 import com.hckj.common.mongo.domain.model.user.User;
@@ -16,7 +16,7 @@ import java.util.List;
  * @date ：Created in 2020/9/28 16:39
  */
 @Service
-public class UserService extends BaseMongoImpl<User> {
+public class MongoUserService extends BaseMongoImpl<User> {
 
     public User findByName(String name) {
         User user = uniqueByCondition("name", name);

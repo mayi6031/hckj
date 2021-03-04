@@ -68,7 +68,7 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
     private Environment environment;
 
     @Bean
-    public RabbitTemplate busiRabbitTemplate(ConnectionFactory connectionFactory) {
+    public RabbitTemplate busiRabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMandatory(true);
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {

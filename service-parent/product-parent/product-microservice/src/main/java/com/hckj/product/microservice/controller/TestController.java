@@ -2,10 +2,12 @@ package com.hckj.product.microservice.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hckj.common.cache.redis.RedisUtil;
+import com.hckj.common.domain.kafka.TopicType;
+import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.common.mongo.domain.model.user.User;
+import com.hckj.common.mq.kafka.KafkaMessageSender;
 import com.hckj.common.mq.rabbitmq.RabbitmqMessageSender;
 import com.hckj.common.web.DataResponse;
-import com.hckj.product.microservice.service.blockQueue.BlockQueueEnum;
 import com.hckj.product.microservice.service.blockQueue.BlockQueueProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,9 @@ public class TestController {
     @Autowired
     private BlockQueueProcessor blockQueueProcessor;
 
+    @Autowired
+    private KafkaMessageSender kafkaMessageSender;
+
     @PostMapping("/test")
     public DataResponse<String> test(@RequestBody String name) {
         // 测试Redis
@@ -63,16 +68,27 @@ public class TestController {
     @PostMapping("/sendMsg")
     public DataResponse<String> sendMsg(String value) {
         logger.info("sendMsg,value：{}", value);
-        new Thread(() -> {
-            for (int k = 1; k <= 50; k++) {
-                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST, value + "-" + k);
-            }
-        }).start();
-        new Thread(() -> {
-            for (int k = 51; k <= 100; k++) {
-                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST2, value + "-" + k);
-            }
-        }).start();
+//        new Thread(() -> {
+//            for (int k = 1; k <= 50; k++) {
+//                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST, value + "-" + k);
+//            }
+//        }).start();
+//        new Thread(() -> {
+//            for (int k = 51; k <= 100; k++) {
+//                blockQueueProcessor.pushToQueue(BlockQueueEnum.BLOCK_QUEUE_TEST2, value + "-" + k);
+//            }
+//        }).start();
+
+        try {
+            ProductInnovateModel productInnovateModel = new ProductInnovateModel();
+            productInnovateModel.setName(value);
+            productInnovateModel.setProductTagId(1);
+            kafkaMessageSender.send(TopicType.TOPIC_KAFKA, String.valueOf(System.currentTimeMillis()), productInnovateModel);
+            kafkaMessageSender.producerSend(TopicType.TOPIC_KAFKA_TEST, String.valueOf(System.currentTimeMillis()), 22l);
+        } catch (Exception e) {
+            logger.error("kafka send message error,please see db log", e);
+        }
         return DataResponse.ok("ok");
     }
+
 }

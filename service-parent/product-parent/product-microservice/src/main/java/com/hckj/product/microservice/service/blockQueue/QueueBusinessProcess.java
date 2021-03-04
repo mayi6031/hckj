@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author ：yuhui
  */
 @Service
-public class BlockQueueBusinessProcess {
+public class QueueBusinessProcess {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
