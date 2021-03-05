@@ -2,6 +2,7 @@ package com.hckj.product.microservice.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hckj.common.cache.redis.RedisUtil;
+import com.hckj.common.domain.kafka.TopicType;
 import com.hckj.common.domain.product.model.ProductInnovateModel;
 import com.hckj.common.mongo.domain.model.user.User;
 import com.hckj.common.mq.activemq.ActivemqMessageSender;
@@ -70,7 +71,7 @@ public class TestController {
     }
 
     @PostMapping("/sendMsg")
-    public DataResponse<String> sendMsg(String value) {
+    public DataResponse<String> sendMsg(String value,Integer delayTime) {
         logger.info("sendMsg,value：{}", value);
 //        new Thread(() -> {
 //            for (int k = 1; k <= 50; k++) {
@@ -83,21 +84,21 @@ public class TestController {
 //            }
 //        }).start();
 
-//        try {
-//            ProductInnovateModel productInnovateModel = new ProductInnovateModel();
-//            productInnovateModel.setName(value);
-//            productInnovateModel.setProductTagId(1);
-//            kafkaMessageSender.send(TopicType.TOPIC_KAFKA, String.valueOf(System.currentTimeMillis()), productInnovateModel);
-//            kafkaMessageSender.producerSend(TopicType.TOPIC_KAFKA_TEST, String.valueOf(System.currentTimeMillis()), 22l);
-//        } catch (Exception e) {
-//            logger.error("kafka send message error,please see db log", e);
-//        }
+        try {
+            ProductInnovateModel productInnovateModel = new ProductInnovateModel();
+            productInnovateModel.setName(value);
+            productInnovateModel.setProductTagId(1);
+            kafkaMessageSender.send(TopicType.TOPIC_KAFKA, String.valueOf(System.currentTimeMillis()), productInnovateModel);
+            kafkaMessageSender.producerSend(TopicType.TOPIC_KAFKA_TEST, String.valueOf(System.currentTimeMillis()), 22l);
+        } catch (Exception e) {
+            logger.error("kafka send message error,please see db log", e);
+        }
 
         ProductInnovateModel productInnovateModel = new ProductInnovateModel();
         productInnovateModel.setName(value);
         productInnovateModel.setProductTagId(1);
         activemqSender.send(ActivemqDesEnum.ACTIVEMQ_TEST, "test");
-        activemqSender.send(ActivemqDesEnum.ACTIVEMQ_TEST2, JSON.toJSONString(productInnovateModel), 2000l);
+        activemqSender.send(ActivemqDesEnum.ACTIVEMQ_TEST2, JSON.toJSONString(productInnovateModel), delayTime);
         return DataResponse.ok("ok");
     }
 
