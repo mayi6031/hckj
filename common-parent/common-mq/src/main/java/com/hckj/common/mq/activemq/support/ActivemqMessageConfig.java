@@ -5,9 +5,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
@@ -19,8 +18,12 @@ import org.springframework.jms.core.JmsTemplate;
 public class ActivemqMessageConfig {
     private static final Logger logger = LoggerFactory.getLogger(ActivemqMessageConfig.class);
 
-    @Autowired
-    private Environment environment;
+    @Value("${spring.activemq.broker-url}")
+    private String brokenUrl;
+    @Value("${spring.activemq.user}")
+    private String userName;
+    @Value("${spring.activemq.password}")
+    private String password;
 
     public RedeliveryPolicy redeliveryPolicy() {
         RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
@@ -41,10 +44,7 @@ public class ActivemqMessageConfig {
 
     @Bean
     public ActiveMQConnectionFactory factory() {
-        String userName = environment.getProperty("spring.activemq.user");
-        String password = environment.getProperty("spring.activemq.password");
-        String url = environment.getProperty("spring.activemq.broker-url");
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(userName, password, url);
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(userName, password, brokenUrl);
         factory.setRedeliveryPolicy(redeliveryPolicy());
         return factory;
     }

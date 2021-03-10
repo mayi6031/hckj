@@ -1,6 +1,6 @@
 package com.hckj.common.mq.activemq.support;
 
-public enum ActivemqDesEnum {
+public enum ActivemqDestinationEnum {
 	   
 	INSTANCE;
 	/* TEST */

@@ -1,7 +1,7 @@
-package com.hckj.product.microservice.controller;
+package com.hckj.product.microservice.controller.mongo;
 
-import com.hckj.common.mongo.domain.user.condition.UserCondition;
 import com.hckj.common.mongo.domain.model.user.User;
+import com.hckj.common.mongo.domain.user.condition.UserCondition;
 import com.hckj.common.mongo.page.MPage;
 import com.hckj.common.web.DataResponse;
 import com.hckj.product.microservice.service.impl.MongoUserService;
@@ -46,6 +46,24 @@ public class MongoUserController {
     public DataResponse<?> saveUser(@RequestBody User user) {
         userService.save(user);
         return DataResponse.ok(user.getId());
+    }
+
+    @PostMapping("/editUser")
+    public DataResponse<?> editUser(@RequestBody User user) {
+        userService.updateById(user);
+        return DataResponse.ok(user.getId());
+    }
+
+    @PostMapping("/deleteUser")
+    public DataResponse<?> deleteUser(@RequestBody String userId) {
+        userService.deleteById(userId);
+        return DataResponse.ok("");
+    }
+
+    @PostMapping("/listUser")
+    public DataResponse<?> listUser() {
+        List<User> list = userService.find();
+        return DataResponse.ok(list);
     }
 
 }

@@ -22,12 +22,12 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.env.Environment;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -64,8 +64,8 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
     @Autowired
     private RedisUtil redisUtil;
 
-    @Autowired
-    private Environment environment;
+    @Value("${server.port}")
+    private String serverPort;
 
     @Bean
     public RabbitTemplate busiRabbitTemplate() {
@@ -87,7 +87,7 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
     }
 
     @Bean
-    public RabbitmqMessageSender busiMessageSender() {
+    public RabbitmqMessageSender rabbitMessageSender() {
         return new RabbitmqMessageSender();
     }
 
@@ -234,7 +234,7 @@ public class RabbitmqMessageConfig implements BeanPostProcessor, BeanFactoryAwar
     private String getLocalAddress() {
         try {
             InetAddress address = InetAddress.getLocalHost();
-            return address.getHostAddress() + ":" + environment.getProperty("server.port");
+            return address.getHostAddress() + ":" + serverPort;
         } catch (UnknownHostException e) {
             e.printStackTrace();
             return null;

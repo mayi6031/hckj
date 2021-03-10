@@ -1,4 +1,5 @@
 spring:
+  ###activemq
   activemq:
     broker-url: tcp://127.0.0.1:61616
     user: admin
@@ -10,6 +11,9 @@ spring:
     password: 123456
     virtual-host: /
     connection-timeout: 15000
+    listener:
+      simple:
+        acknowledge-mode: manual
   ###kafka
   kafka:
     bootstrap-servers: http://127.0.0.1:9092
@@ -30,6 +34,23 @@ spring:
       max.pollrecordes: 100
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  ###rocketmq
+  rocketmq:
+    producer:
+      isOnOff: on
+      groupName: CicadaGroup
+      namesrvAddr: 127.0.0.1:9876
+      maxMessageSize: 4096
+      sendMsgTimeout: 3000
+      retryTimesWhenSendFailed: 2
+    consumer:
+      isOnOff: on
+      groupName: CicadaGroup
+      namesrvAddr: 127.0.0.1:9876
+      topics: topic_test~*;topic_test2~*
+      consumeThreadMin: 20
+      consumeThreadMax: 64
+      consumeMessageBatchMaxSize: 1
   ###mongodb
   data:
     mongodb:

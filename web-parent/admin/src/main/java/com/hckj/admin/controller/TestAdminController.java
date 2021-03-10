@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date ：Created in 2020/10/9 10:01
  */
 @Controller
-public class TestController {
+public class TestAdminController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping("/hello1")

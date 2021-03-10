@@ -47,7 +47,9 @@
         </Logger>
         <Logger name="org.springframework.kafka" level="WARN">
         </Logger>
-        <Logger name="com.netflix.discovery" level="OFF">
+        <Logger name="RocketmqClient" level="WARN">
+        </Logger>
+        <Logger name="com.netflix.discovery" level="WARN">
         </Logger>
     </Loggers>
 </Configuration>

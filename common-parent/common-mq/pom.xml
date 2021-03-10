@@ -45,6 +45,15 @@
             <groupId>com.hckj</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.rocketmq</groupId>
+            <artifactId>rocketmq-all</artifactId>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 
 </project>
