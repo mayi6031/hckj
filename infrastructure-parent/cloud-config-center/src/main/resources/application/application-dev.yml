@@ -51,10 +51,16 @@ spring:
       consumeThreadMin: 20
       consumeThreadMax: 64
       consumeMessageBatchMaxSize: 1
-  ###mongodb
   data:
+    ###mongodb
     mongodb:
       uri: mongodb://127.0.0.1:27017/test
+    ###elasticsearch
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 172.17.53.138:9300
+      repositories:
+        enabled: true
 
 ##Redis
 redis:

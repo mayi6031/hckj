@@ -4,7 +4,7 @@ import com.hckj.common.mongo.domain.model.user.User;
 import com.hckj.common.mongo.domain.user.condition.UserCondition;
 import com.hckj.common.mongo.page.MPage;
 import com.hckj.common.web.DataResponse;
-import com.hckj.product.microservice.service.impl.MongoUserService;
+import com.hckj.product.microservice.service.mongo.MongoUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

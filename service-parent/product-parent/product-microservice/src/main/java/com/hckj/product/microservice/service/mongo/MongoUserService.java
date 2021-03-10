@@ -1,4 +1,4 @@
-package com.hckj.product.microservice.service.impl;
+package com.hckj.product.microservice.service.mongo;
 
 import com.hckj.common.mongo.base.BaseMongoImpl;
 import com.hckj.common.mongo.domain.model.user.User;

@@ -66,6 +66,7 @@
         <module>common-util</module>
         <module>common-web</module>
         <module>mybatis-generator</module>
+        <module>common-elasticsearch</module>
     </modules>
 
 </project>

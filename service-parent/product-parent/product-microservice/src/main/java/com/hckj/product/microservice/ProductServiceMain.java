@@ -29,6 +29,8 @@ public class ProductServiceMain implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceMain.class);
 
     public static void main(String[] args) {
+        // 因redis和elasticsearch都用到netty，有冲突，此处关闭elasticsearch的netty
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(ProductServiceMain.class, args);
     }
 

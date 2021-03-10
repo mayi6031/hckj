@@ -57,8 +57,10 @@ public class TestController {
         redisUtil.set(name, "test_" + name);
         logger.info("test_redis:" + redisUtil.get(name));
 
-        SendResult sendResult = rocketmqMessageSender.send(RocketmqTopicTagEnum.TOPIC_TAG_TEST, name);
-        logger.info("sendResult:" + JSON.toJSONString(sendResult));
+        if (rocketmqMessageSender != null) {
+            SendResult sendResult = rocketmqMessageSender.send(RocketmqTopicTagEnum.TOPIC_TAG_TEST, name);
+            logger.info("sendResult:" + JSON.toJSONString(sendResult));
+        }
         return DataResponse.ok(name);
     }
 

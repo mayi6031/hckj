@@ -38,6 +38,11 @@
             </dependency>
             <dependency>
                 <groupId>com.hckj</groupId>
+                <artifactId>common-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hckj</groupId>
                 <artifactId>common-exception</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -220,9 +225,7 @@
     <distributionManagement>
         <repository>
             <id>hph-snap</id>
-            <name>hph-snap</name>
             <url>http://192.168.10.244:8081/repository/hph_snap/</url>
-            <layout>default</layout>
         </repository>
     </distributionManagement>
 

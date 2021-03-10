@@ -7,7 +7,7 @@ import com.hckj.common.mongo.utils.MongoOperateMerge;
 import com.hckj.common.mongo.utils.MultiOprHelp;
 import com.hckj.product.microservice.ProductServiceMain;
 import com.hckj.product.microservice.base.SpringContextUtil;
-import com.hckj.product.microservice.service.impl.MongoUserService;
+import com.hckj.product.microservice.service.mongo.MongoUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

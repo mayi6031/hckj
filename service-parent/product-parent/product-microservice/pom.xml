@@ -91,6 +91,10 @@
         </dependency>
         <dependency>
             <groupId>com.hckj</groupId>
+            <artifactId>common-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hckj</groupId>
             <artifactId>common-cache</artifactId>
         </dependency>
         <dependency>
